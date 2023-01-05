@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/filter-draweer.css">
+    <title>Filter drawer</title>
+    <style>
+        .ad-form{
+            display: flex;
+            padding: 24px;
+        }
+        .ad-form input{
+            margin-left: 8px;
+        }
+        .ad-header{
+            display: flex;
+            position: fixed;
+            top: 0;
+            height: 68px;
+            width: 100%;
+            background-color: #999;
+        }
+
+        .ad-toolbar{
+
+        }
+
+        .ad-footer{
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            height: 40px;
+            width: 100%;
+            background-color: #333;
+            z-index: 10;
+        }
+
+        ad-filter-drawer,
+        ad-filter-drawer-scrim {
+            top: 68px;
+            bottom: 40px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="ad-header">
+        <button ad-show>Show</button>
+        <button ad-hide>Hide</button>
+    </div>
+    <div class="ad-toolbar">toolbar</div>
+    <ad-filter-drawer>
+        <ad-filter-drawer-header>
+            <ad-close>
+                <svg viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+            </ad-close>
+        </ad-filter-drawer-header>
+        <ad-filter-drawer-content>
+            <div class="ad-form">
+                Some information first
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information 
+                <input type="text">
+            </div>
+            <div class="ad-form">
+                Some information last
+                <input type="text">
+            </div>
+        </ad-filter-drawer-content>
+    </ad-filter-drawer>
+    <ad-filter-drawer-scrim></ad-filter-drawer-scrim>
+    <div class="ad-footer">footer</div>
+    <script src="js/filter-drawer.js"></script>
+    <script>
+        const dr = document.querySelector('ad-filter-drawer ');
+        document.querySelector('[ad-show]').addEventListener('click', e=>{
+            dr.show();
+        });
+
+        document.querySelector('[ad-hide]').addEventListener('click', e=>{
+            dr.hide();
+        });
+    </script>
+</body>
+</html>
