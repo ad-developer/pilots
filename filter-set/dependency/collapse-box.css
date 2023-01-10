@@ -1,0 +1,49 @@
+.ad-collapse-box{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: inherit;
+    margin-bottom: 8px;
+}
+.ad-collapse-box-title{
+    display: flex;
+    position: relative; 
+    background-color: #ccc;
+    height: 28px;
+    align-items: center;
+    padding: 0 8px;
+}
+.ad-collapse-box-title--highlight{
+    color: #b71c1c;
+    fill: #b71c1c;
+    background-color: #f1f1f1;
+}
+
+.ad-collapse-box-title__text{
+
+}
+.ad-collapse-box-title__arrow{
+    display: flex;
+    position: relative;
+    margin-left: auto;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    right: -2px;
+    cursor: pointer;
+}
+.ad-collapse-box-title__arrow svg{
+    width: 24px;
+    height: 24px;
+}
+.ad-collapse-box__content{
+    border: 1px solid #ccc;
+    display: none;
+}
+.ad-collapse-box__opened .ad-collapse-box-title__arrow{
+    transform: rotate(180deg);
+}
+.ad-collapse-box__opened .ad-collapse-box__content{
+    display: flex;
+} 
