@@ -1,0 +1,130 @@
+.ad-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #f7f7f7;
+  padding: 8px 0; }
+
+.ad-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px; }
+
+.ad-input-group__wrapper {
+  display: flex;
+  flex-direction: column; }
+
+.ad-input-group-row {
+  flex-direction: row;
+  align-items: center; }
+  .ad-input-group-row .ad-input-group__wrapper {
+    flex-direction: row; }
+  .ad-input-group-row .ad-input-group-text {
+    width: 30%;
+    justify-content: right;
+    padding-bottom: 0px; }
+  .ad-input-group-row .ad-control-group {
+    width: 70%; }
+
+.ad-input-group-text {
+  display: flex;
+  white-space: nowrap;
+  overflow-x: hidden;
+  padding-right: 16px;
+  padding-bottom: 4px; }
+
+.ad-control-group {
+  display: flex;
+  position: relative; }
+  .ad-control-group .ad-icon-button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    min-height: 24px;
+    padding-bottom: 0px;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0px;
+    background-color: #fff;
+    box-sizing: border-box;
+    cursor: pointer; }
+  .ad-control-group .ad-icon-button:hover {
+    background-color: #f3f3f3;
+    border-color: #ccc; }
+  .ad-control-group svg {
+    display: flex;
+    padding: 0px;
+    width: 20px;
+    height: 20px; }
+
+.ad-form-control {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font: inherit;
+  cursor: text;
+  outline: none; }
+  .ad-form-control:hover {
+    border-color: #ccc; }
+
+select.ad-form-control {
+  padding-right: 0px;
+  cursor: default; }
+
+textarea.ad-form-control {
+  padding-top: 8px;
+  padding: 8px;
+  min-height: 100px; }
+
+[type=checkbox].ad-form-control {
+  width: 16px;
+  height: 16px;
+  padding: 0px; }
+
+.ad-form-control::-ms-clear {
+  display: none; }
+
+.ad-form--inline .ad-input-group {
+  flex-direction: row;
+  align-items: center;
+  height: 400px;
+  margin-bottom: 0px; }
+
+.ad-form--inline .ad-input-group-text {
+  justify-content: flex-end;
+  width: 30%;
+  pad: 0px; }
+
+.ad-input-group .ad-error-message {
+  visibility: hidden;
+  height: 12px;
+  line-height: 12px;
+  margin-top: 4px;
+  padding-left: 8px;
+  font-size: 12px;
+  color: #f00; }
+
+.ad-input-group-row .ad-error-message {
+  margin-left: 30%;
+  padding-left: 16px; }
+
+.ad-error .ad-input-group-text {
+  color: #f00; }
+
+.ad-error .ad-form-control,
+.ad-error .ad-icon-button,
+.ad-error .ad-icon-button:hover {
+  border-color: #f00; }
+
+.ad-error .ad-icon-button:hover {
+  background-color: #fff5f5; }
+
+.ad-error .ad-error-message {
+  visibility: visible; }
