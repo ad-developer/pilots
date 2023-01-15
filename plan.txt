@@ -3,3 +3,9 @@ form
 
 chip
 chip-set
+
+lint
+fix
+compile 
+minify 
+[package]

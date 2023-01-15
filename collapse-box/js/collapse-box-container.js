@@ -68,7 +68,7 @@ class ADCollapseBoxContainer extends ADComponent{
        </div>`;
     const node = this.createElement(fixture);
     if(par.controlId){
-      const anc = node.querySelector(`[ad-id:'${par.controlId}']`);
+      const anc = node.querySelector(`[ad-id='${par.controlId}']`);
       par.control.attachTo(anc, par.controlData);
     }
     const box = ADCollapseBox.attachTo(node);
