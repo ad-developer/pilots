@@ -1,22 +1,24 @@
-.ad-collapse-box{
+@import "_variables";
+
+ad-collapse-box{
     display: flex;
     position: relative;
     flex-direction: column;
     width: inherit;
     margin-bottom: 8px;
 }
-.ad-collapse-box-title{
+ad-collapse-box-title{
     display: flex;
     position: relative; 
     background-color: #ccc;
     height: 28px;
     align-items: center;
     padding: 0 8px;
-}
-.ad-collapse-box-title--highlight{
-    color: #b71c1c;
-    fill: #b71c1c;
-    background-color: #f1f1f1;
+    &.ad-collapse-box-title--highlight{
+        color: #b71c1c;
+        fill: #b71c1c;
+        background-color: #f1f1f1;
+    }
 }
 
 .ad-collapse-box-title__text{

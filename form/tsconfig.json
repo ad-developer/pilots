@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "baseUrl": ".",
+    "declaration": false,
+    "declarationMap": false,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUnusedLocals": true,
+    "sourceMap": false,
+    "strict": false,
+    "strictNullChecks": false,
+    "target": "es2022",
+    "outDir": "js"   
+  },
+  "include": [
+    "ts/**/*"
+  ],
+  "exclude":[
+    "node_modules",
+    "ts/interfaces/*"
+  ]
+}
