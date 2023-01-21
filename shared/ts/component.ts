@@ -1,34 +1,27 @@
-/* const cssClasses = {};*/
-
+import {CustomEventListener, EventType, SpecificEventListener} from './types';
 /** Class representing a base ADComponent. */
-class ADComponent {
+
+/**
+ * ADComponent
+ */
+export class ADComponent {
   
   /**
-   * @param {!Element} root
-   * @return {!ADComponent}
+   * attachTo
+   * @param {Element}root 
+   * @param {Array} args 
+   * @returns {ADComponent}
    */
-  static attachTo(root, ...args) {
-    const instanceKey = 'ad-base';
-    let instance = root.ad && root.ad[instanceKey] ?
-      root.ad[instanceKey] : null;
-    
-      if(!instance){
-      instance = new ADComponent(root, ...args);
-
-      // Attach instance to the root
-      root.ad = root.ad || {};
-      root.ad[instanceKey] = instance;
-    }
-    return instance;
+  static attachTo(root: Element, ...args: unknown[]): ADComponent {
+      return  new ADComponent(root, ...args);
   }
 
   /**
-   * @param {!Element} root
-   * @param {...?} args
+   * constructor
+   * @param root 
+   * @param args 
    */
-  constructor(root, ...args) {
-    /** @protected {!Element} */
-    this.root_ = root;
+  constructor(public root: Element, ...args: unknown[]) {
     this.init(...args);
     this.initSyncWithDOM();
   }
@@ -36,7 +29,7 @@ class ADComponent {
   /**
    * @param {...?} args
    */
-  init(/* ...args*/) {
+  init(...args: any[]) {
     // Subclasses can override this to do any additional setup work that would be considered part of a
     // "constructor". Essentially, it is a hook into the parent constructor before the component is
     // initialized. Any additional arguments besides root will be passed in here.
@@ -57,22 +50,26 @@ class ADComponent {
   /**
    * Wrapper method to add an event listener to the component's root element. This is most useful when
    * listening for custom events.
-   * @param {!string} evtType
-   * @param {!Function} handler
    */
-  listen(evtType, handler) {
-    this.root_.addEventListener(evtType, handler);
+  listen<K extends EventType>(
+    evtType: K, handler: SpecificEventListener<K>, options?: AddEventListenerOptions | boolean): void;
+  listen<E extends Event>(
+    evtType: string, handler: CustomEventListener<E>, options?: AddEventListenerOptions | boolean): void;
+  listen(evtType: string, handler: EventListener, options?: AddEventListenerOptions | boolean) {
+    this.root.addEventListener(evtType, handler, options);
   }
 
-  /**
+ /**
    * Wrapper method to remove an event listener to the component's root element. This is most useful when
    * unlistening for custom events.
-   * @param {!string} evtType
-   * @param {!Function} handler
    */
-  unlisten(evtType, handler) {
-    this.root_.removeEventListener(evtType, handler);
-  }
+ unlisten<K extends EventType>(
+  evtType: K, handler: SpecificEventListener<K>, options?: AddEventListenerOptions | boolean): void;
+unlisten<E extends Event>(
+  evtType: string, handler: CustomEventListener<E>, options?: AddEventListenerOptions | boolean): void;
+unlisten(evtType: string, handler: EventListener, options?: AddEventListenerOptions | boolean) {
+  this.root.removeEventListener(evtType, handler, options);
+}
 
  /**
    * Fires a cross-browser-compatible custom event from the component root 
@@ -82,7 +79,7 @@ class ADComponent {
    * @param {boolean=} shouldBubble
    * @param {!Element=} element
    */
-  emit(evtType, evtData, shouldBubble = false, element = null) {
+  emit(evtType: string, evtData: object | null, shouldBubble: boolean | undefined = false, element: Element | undefined = undefined) {
     const  evt = new CustomEvent(evtType, {
        detail: evtData,
        bubbles: shouldBubble,
@@ -90,7 +87,7 @@ class ADComponent {
    if(element){
      element.dispatchEvent(evt);
    } else {
-     this.root_.dispatchEvent(evt);
+     this.root.dispatchEvent(evt);
    }
  }
 
@@ -98,7 +95,7 @@ class ADComponent {
    * Create html element
    * @param {!string} html
    */
-  createElement(html) {
+  createElement(html: string) {
     const el = document.createElement('div');
     el.innerHTML = html;
     return el.firstChild;

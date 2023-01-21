@@ -44,7 +44,7 @@ class ADInputGroup extends HTMLElement {
         this.id = '';
         this.innerHTML = `
           <label for="${id}" class="ad-input-group-text">${label}</label>
-          <ad-control-group class="ad-control-group">${typeHandlers[type]({ id: id, subType: subType })}</ad-control-group>`;
+          <ad-control-group class="ad-control-group">${typeHandlers[type]({ id: id, type: subType })}</ad-control-group>`;
     }
     static get observedAttributes() {
         return ['ad-type', 'ad-label'];

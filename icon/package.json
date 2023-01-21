@@ -1,0 +1,23 @@
+{
+    "devDependencies": {
+        "del-cli": "^5.0.0",
+        "node-sass": "^8.0.0",
+        "typescript": "^4.9.4"
+    },
+    "scripts": {
+        "clean:css": "del-cli css/**",
+        "clean:js": "del-cli js/**",
+   
+        "build:css": "npm run clean:css && mkdirp css && node-sass scss -o css",
+        "build:js": "npm run clean:js && mkdirp js && tsc --pretty",
+        "build": "npm run build:css && npm run build:js",
+
+        "build:min": "npm run build",
+        
+        "dist": "npm run build && npm run build:min",
+        
+        "watch:css": "node-sass -w scss -o css",
+        "watch:js": "tsc --watch --pretty", 
+        "watch": "npm run watch:css && npm run watch:js"
+    }
+}
