@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/icon.css">
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+        ad-container{
+            display: flex;
+            flex-direction:column;
+            margin: 100px;
+        }
+        ad-button-container{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .container{
+            display: flex;
+            height: 100px;
+            width: 100px;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        ad-button {
+            display: flex;
+            position:relative;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+            padding-left: 16px;
+            padding-right: 16px;
+            border: 1px solid #f1f1f1;
+            border-radius: 36px;
+            color: #777;
+            text-transform:capitalize;
+            font-weight: 500;
+
+            cursor: pointer;
+            min-width: 64px;
+           
+        }
+        ad-button:hover {
+            background-color: #f1f1f1;
+        }
+        ad-button.ad-icon {
+            
+        }
+        ad-button.ad-icon:first-child ad-icon {
+            margin-left: -8px;
+            margin-right: 2px;
+        }
+        ad-button.ad-icon:last-child ad-icon {
+            margin-left: 2px;
+            margin-right: -8px;
+        }
+        .ad-button--elevated {
+            background-color: #03a9f4;
+            color: #fff;
+        }
+        .ad-button--elevated:hover {
+            background-color: #4fc2f7;
+        }
+        .ad-button--elevated:focus {
+            //background-color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <ad-container>
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon class="ad-icon--20">
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M15,17h6v2h-6V17z M11,17H3v2h8v2h2v-6h-2V17z M14,9h2V3h-2v2H3v2h11V9z M18,5v2h3V5H18z M6,15h2V9H6v2H3v2h3V15z M10,13h11 v-2H10V13z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    filters
+                </ad-button>
+                <ad-button class="ad-icon">
+                    filters
+                    <ad-icon class="ad-icon--16">
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M15,17h6v2h-6V17z M11,17H3v2h8v2h2v-6h-2V17z M14,9h2V3h-2v2H3v2h11V9z M18,5v2h3V5H18z M6,15h2V9H6v2H3v2h3V15z M10,13h11 v-2H10V13z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+          
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon class="ad-icon--28">
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M20.87,20.17l-5.59-5.59C16.35,13.35,17,11.75,17,10c0-3.87-3.13-7-7-7s-7,3.13-7,7s3.13,7,7,7c1.75,0,3.35-0.65,4.58-1.71 l5.59,5.59L20.87,20.17z M10,16c-3.31,0-6-2.69-6-6s2.69-6,6-6s6,2.69,6,6S13.31,16,10,16z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    search
+                </ad-button>
+                <ad-button class="ad-icon">
+                    search
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M20.87,20.17l-5.59-5.59C16.35,13.35,17,11.75,17,10c0-3.87-3.13-7-7-7s-7,3.13-7,7s3.13,7,7,7c1.75,0,3.35-0.65,4.58-1.71 l5.59,5.59L20.87,20.17z M10,16c-3.31,0-6-2.69-6-6s2.69-6,6-6s6,2.69,6,6S13.31,16,10,16z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+           
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M12.7,12l6.6,6.6l-0.7,0.7L12,12.7l-6.6,6.6l-0.7-0.7l6.6-6.6L4.6,5.4l0.7-0.7l6.6,6.6l6.6-6.6l0.7,0.7L12.7,12z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    cancel
+                </ad-button>
+                <ad-button class="ad-icon">
+                    cancel
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M12.7,12l6.6,6.6l-0.7,0.7L12,12.7l-6.6,6.6l-0.7-0.7l6.6-6.6L4.6,5.4l0.7-0.7l6.6,6.6l6.6-6.6l0.7,0.7L12.7,12z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+            
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g><path d="M21,6H3V5h18V6z M15,11H3v1h12V11z M9,17H3v1h6V17z"></path></g>
+                        </svg>
+                    </ad-icon>
+                    filters
+                </ad-button>
+                <ad-button class="ad-icon">
+                    filters
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g><path d="M21,6H3V5h18V6z M15,11H3v1h12V11z M9,17H3v1h6V17z"></path></g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+            
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M14.6,18.4L8.3,12l6.4-6.4l0.7,0.7L9.7,12l5.6,5.6L14.6,18.4z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    arrow left
+                </ad-button>
+                <ad-button class="ad-icon">
+                    arrow left
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M14.6,18.4L8.3,12l6.4-6.4l0.7,0.7L9.7,12l5.6,5.6L14.6,18.4z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+       
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M9.4,18.4l-0.7-0.7l5.6-5.6L8.6,6.4l0.7-0.7l6.4,6.4L9.4,18.4z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    arrow right
+                </ad-button>
+                <ad-button class="ad-icon">
+                    arrow right
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M9.4,18.4l-0.7-0.7l5.6-5.6L8.6,6.4l0.7-0.7l6.4,6.4L9.4,18.4z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path>
+                            <circle cx="12" cy="12" r="3.5"></circle>
+                        </svg>
+                    </ad-icon>
+                    settings
+                </ad-button>
+                <ad-button class="ad-icon">
+                    settings
+                    <ad-icon >
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path>
+                            <circle cx="12" cy="12" r="3.5"></circle>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+      
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24" >
+                            <g>
+                                <path d="M22,13h-4v4h-2v-4h-4v-2h4V7h2v4h4V13z M14,7H2v1h12V7z M2,12h8v-1H2V12z M2,16h8v-1H2V16z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    save
+                </ad-button>
+                <ad-button class="ad-icon">
+                    save
+                    <ad-icon >
+                        <svg viewBox="0 0 24 24" >
+                            <g>
+                                <path d="M22,13h-4v4h-2v-4h-4v-2h4V7h2v4h4V13z M14,7H2v1h12V7z M2,12h8v-1H2V12z M2,16h8v-1H2V16z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>    
+
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M14.6,18.4L8.3,12l6.4-6.4l0.7,0.7L9.7,12l5.6,5.6L14.6,18.4z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    previous
+                </ad-button>
+                <ad-button class="ad-icon">
+                    next
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M9.4,18.4l-0.7-0.7l5.6-5.6L8.6,6.4l0.7-0.7l6.4,6.4L9.4,18.4z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+
+            <ad-button-container>
+                <ad-button class="ad-icon">
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M18,9l-6,6L6,9H18z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    down
+                </ad-button>
+                <ad-button class="ad-icon">
+                    up
+                    <ad-icon>
+                        <svg viewBox="0 0 24 24">
+                            <g><path d="M18,15H6l6-6L18,15z"></path>
+                            </g>
+                        </svg>
+                    </ad-icon>
+                    
+                </ad-button>
+            </ad-button-container>
+
+          
+
+            <ad-button-container>
+                <ad-button class="ad-button--elevated" tabindex="1">
+                    yes
+                </ad-button>
+                <ad-button>
+                    no
+                </ad-button>
+            </ad-button-container>
+           
+
+    </ad-container>
+    <script>
+        document.querySelector('[ad-con]')
+        .addEventListener('click', e=>{
+            alert('here');
+        })
+    </script>
+</body>
+</html>

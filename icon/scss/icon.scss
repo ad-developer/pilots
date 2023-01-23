@@ -1,10 +1,24 @@
 ad-icon {
     display: flex;
     position: relative;
-    width: 24fpx;
+    width: 24px;
     height: 24px;
     padding: 2px;
+    justify-content: center;
+    align-items: center;
     pointer-events: none;
+}
+.ad-icon--28{
+    width: 28px;
+    height: 28px;
+}
+.ad-icon--20{
+    width: 20px;
+    height: 20px;
+}
+.ad-icon--16{
+    width: 16px;
+    height: 16px;
 }
 ad-icon svg {
     fill: #777;

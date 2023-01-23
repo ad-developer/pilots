@@ -9,3 +9,8 @@ fix
 compile 
 minify 
 [package]
+
+<datalist id="someId">
+    <option value="one"></option>
+    <option value="two"></option>
+</datalist>

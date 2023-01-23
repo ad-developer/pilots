@@ -1,0 +1,48 @@
+// General colors 
+$ad-black-color: #000 !default;
+$ad-white-color: #fff !default;
+
+// Gray 
+$ad-gray-base-color: #ccc !default;
+$ad-gray-lighter-10-color: lighten($ad-gray-base-color, 10%) !default;
+$ad-gray-lighter-20-color: lighten($ad-gray-base-color, 20%) !default;
+$ad-gray-lighter-30-color: lighten($ad-gray-base-color, 30%) !default;
+$ad-gray-darker-10-color: darken($ad-gray-base-color, 10%) !default;
+$ad-gray-darker-20-color: darken($ad-gray-base-color, 20%) !default;
+$ad-gray-darker-30-color: darken($ad-gray-base-color, 30%) !default;
+
+// Brand colors 
+$ad-brand-primary-color: #d71e28 !default;
+$ad-inverse-brand-primary-color: $ad-white-color !default;
+$ad-brand-secondary-color: #007bff !default;
+$ad-inverse-brand-secondary-color: $ad-white-color !default;
+
+$ad-brand-danger-color: red;
+$ad-brand-warning-color: orange;
+$an-brand-info-color: lightblue;
+$an-brand-success-color: green;
+
+$ad-background-color: $ad-white-color !default;
+$ad-border-color: $ad-gray-base-color !default;
+
+
+
+// Base element 
+$ad-border-thin: 1px solid $ad-border-color !default;
+
+// Cryptography
+$ad-font-family-base: "Roboto", sans-serif !default;
+$ad-font-size-base: 1rem !default;
+$ad-font-weight-base: 400 !default;
+$ad-line-height-base: 1.5 !default;
+
+// z position
+$ad-z-position-top: 10000 !default;
+$ad-z-position-level-5: 10 !default;
+
+// Elevations 
+
+// Paddings
+
+// RTE
+//$ad-rte-border: $ad-borderthin !default;
