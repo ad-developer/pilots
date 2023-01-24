@@ -33,39 +33,33 @@ export class ADForm extends ADComponent{
     /**
      * values 
      */
-    public get values(): any {
-        
+    public get value(): any {
         let res:any = {}
         if(this.validator_.isValid()){
-            
-            let val:any;
             this.elements_.forEach(el=>{
-                if(el.hasAttribute('ad-ms-default-text')){
-                    const ms = ADMultiselect.attachTo(el);
-                    if(ms){
-                        val = ms.getSelectedData();
-                    }
-                } else {
-                   val = el.getAttribute('ad-value');
-                   if(!val){
-                    if(this.isClickType(el)){
-                        val = this.toInt((el as HTMLInputElement).checked);
-                    } else {
-                        val (el as HTMLInputElement).value;
-                    }
-                   }     
-                }
-
+                const val = this.getElementValue(el);
                 res[el.id] = {
                     value: this.htmlEncrypt(val),
                     label: el.getAttribute('label'),
                     adLabel: el.getAttribute('ad-label')
                 };
-
             });
         }
         
         return res
+    }
+    
+    public set value(data:object[]){
+        // Remove tracing to prevent firing 
+        // form.change event 
+        this.trackElements(true);
+        
+        // Bind elements 
+        for (const [id, value] of Object.entries(data)) {
+            this.setElementValue(id, value);
+        }
+        // Set tracing 
+        this.trackElements(false);
     }
 
     /**
@@ -84,78 +78,15 @@ export class ADForm extends ADComponent{
         
         this.validator_ = parameters.validator(this.root);
     }
-    
-    /**
-     * bind
-     * @param {object[]} data
-     * @returns {void} 
-     */
-    public bind(data:object[]):void {
-        
-        // Remove tracing to prevent firing 
-        // form.change event 
-        this.trackElements(true);
-        for (const [key, value] of Object.entries(data)) {
-            const el = this.root.querySelector<any>(`[id="${key}"]`);
-            if (el) {
-                
-                let processed = false;
-                // Text area or ADRte
-                if(el.tagName === 'TEXTAREA'){
-                    // See if ADRte is used 
-                    if(ad.ADRte){
-                        // Try to get instance of the ADRte
-                        const inst = ad.ADRte.getInstance(el);
-                        if(inst){
-                            inst.set(value);
-                            processed = true;
-                        } 
-                    } 
-                // multiselect        
-                } else if(el.hasAttribute('ad-ms-default-text')){
-                    
-                    let inst;
-                    if(inst = this.isMultiselect(el)){
-                        inst.selectedData(value);
-                        processed = true;
-                    }
-                    
-                    // Check box or radio button 
-                } else if(this.isClickType(el)){
-                    el.checked = this.toBool(value);
-                    processed = true;
-                    // Everything else     
-                } else {
-                    if(el.nodeType === 'DIV' || el.nodeType === 'SPAN'){
-                        el.innerHTML = this.htmlDecrypt(value);
-                        processed = true;
-                    }
-                }
-                if(!processed){
-                    el.value = this.htmlDecrypt(value);
-                }
-                if(el.nodeType == 'SELECT'){
-                    this.emit('change', null, null, el);
-                }
-            }
-        }
-        // Set tracing 
-        this.trackElements(false);
-    }
 
-    public getFormElementData(id:string):any {
+    public getElementData(id:string):any {
         const el = this.root.querySelector(`[id='${id}']`);
-        if(el){
-            let ms;
-            let res;
-            if(ms = this.isMultiselect(el)){
-                res = 
-            }
-        }
+        const res = this.getElementValue(el as HTMLElement);
+        return res;
     }
 
-    public bindFormElement(data:any):void{
-
+    public setElementData(id:string, value:any):void{
+       this.setElementValue(id, value);
     }
 
     /**
@@ -168,7 +99,7 @@ export class ADForm extends ADComponent{
 
     public clear():void {
         this.elements_.forEach(el=>{
-            
+            this.clearElement(el);
         });
     }
 
@@ -180,18 +111,30 @@ export class ADForm extends ADComponent{
 
     private trackElements(untrack:boolean):void {
         this.elements_.forEach(el=>{
-            let eventType = 'blur';
-            if(el.nodeType.toString() == 'SELECT'){
-                eventType = 'change';
-            } else if(this.isClickType(el)){
-                eventType = 'click';
-            }
-            if(untrack){
-                el.removeEventListener(eventType, this.trackElementHandler);
-            } else {
-                el.addEventListener(eventType, this.trackElementHandler);
-            }
+            this.trackElement(el, untrack);
         });
+    }
+    
+    private trackElement(el:HTMLElement, untrack: boolean):void {
+        let eventType = 'blur';
+       
+        if(this.isMultiselect(el)  
+            || this.isRte(el)
+            || el.tagName == 'SELECT'){
+            eventType = 'change'
+        } else if(this.isClickType(el)){
+            eventType = 'click';
+        }
+        
+        if(untrack){
+            el.removeEventListener(eventType, this.trackElementHandler);
+        } else {
+            el.addEventListener(eventType, this.trackElementHandler);
+        }
+    }
+
+    private trackElementHandler(e:Event):void {
+        this.emit('form.change', {event: e});
     }
 
     private isClickType(el:Element):boolean {
@@ -201,27 +144,124 @@ export class ADForm extends ADComponent{
         return res;
     }
 
-    
-
-    private trackElementHandler(e:Event):void {
-        this.emit('form.change', {event: e});
-    }
-
     private isMultiselect(element: Element):any {
         
         let res:any = null;
-        if(ad.ADMultiselect){
+        if(ADMultiselect){
             res = ADMultiselect.getInstance(element);
         }
 
         return res;
     }
     
+    private isRte(element: Element):any {
+        
+        let res:any = null;
+        if(ad.ADRte){
+            res = ad.ADRte.getInstance(element);
+        }
+
+        return res;
+    }
+
+    /**
+     * getElementValue
+     * @param {HTMLElement} el 
+     * @returns {any} 
+     */
+    private getElementValue(el:HTMLElement):any {
+        
+        let res:any = null;
+        
+        if(el) {
+            let val:any;
+            let customEl: any;
+
+            if(customEl = this.isMultiselect(el)) {
+                val = customEl.getSelectedData();
+            } else if(customEl = this.isRte(el)) {
+                val = customEl.getValue();
+            } else {
+                val = el.getAttribute('ad-value');
+               
+                if(!val){
+                    if(this.isClickType(el)){
+                        val = this.toInt((el as HTMLInputElement).checked);
+                    } else {
+                        val (el as HTMLInputElement).value;
+                    }
+                }     
+            }
+    
+            res = {
+                value: this.htmlEncrypt(val),
+                label: el.getAttribute('label'),
+                adLabel: el.getAttribute('ad-label')
+            }
+        }
+
+        return res;
+    }
+
+    private setElementValue(id:string, value:any):void {
+
+        const el = this.root.querySelector<any>(`[id="${id}"]`);
+        if (el) {
+            
+            let customEl:any = null;
+            if(customEl = this.isMultiselect){
+                customEl.setSelectedData(value);
+               
+            } else if(customEl = this.isRte(el)){
+                customEl.set(value);     
+              
+                // Check box or radio button 
+            } else if(this.isClickType(el)){
+                el.checked = this.toBool(value);
+             
+                    
+            } else {
+                if(el.tagName === 'DIV' || el.tagName === 'SPAN'){
+                    el.innerHTML = this.htmlDecrypt(value);
+                } else {
+                    el.value = this.htmlDecrypt(value);
+                }
+            }
+            if(el.tagName == 'SELECT') {
+                this.emit('change', null, null, el);
+            }
+        }
+    }
+
+    private clearElement(el:HTMLElement):void {
+        let customEl:any = null;
+        if(customEl = this.isMultiselect(el)){
+            customEl.clear();
+        } else if(customEl = this.isRte){
+            customEl.set('');
+        } else if(el.tagName == 'SELECT'){
+
+        } else {
+            if(this.isClickType(el)){
+                (el as HTMLInputElement).checked = false;
+            } else {
+                if(el.tagName === 'DIV' || el.tagName === 'SPAN'){
+                    el.innerHTML = '';
+                } else {
+                    (el as HTMLInputElement).value = '';
+                }
+            }
+        }
+    }
+
     private toBool(value:any):boolean {
         value = parseInt(value);
         return !!value;
     }
-
+    
+    private toInt(val:boolean):number{
+        return val? 1: 0;
+    }
     /**
      * @private
      * @param {Object} data 
@@ -249,10 +289,5 @@ export class ADForm extends ADComponent{
         } 
         return res;
     }
-
-    private toInt(val:boolean):number{
-        return val? 1: 0;
-    }
-
     //#endregion
 }
