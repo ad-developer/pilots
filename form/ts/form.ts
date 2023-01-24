@@ -67,7 +67,7 @@ export class ADForm extends ADComponent{
      * @param parameters 
      */
     override init(parameters: IParameters): void {
-        const meta = parameters.meta;
+        const meta = parameters?.meta;
 
         if(meta){
             this.build(meta);
@@ -80,7 +80,7 @@ export class ADForm extends ADComponent{
     }
 
     public getElementData(id:string):any {
-        const el = this.root.querySelector(`[id='${id}']`);
+        const el = this.root.querySelector(`[ad-id='${id}']`);
         const res = this.getElementValue(el as HTMLElement);
         return res;
     }
@@ -106,7 +106,7 @@ export class ADForm extends ADComponent{
     //#region  Private members 
 
     private createElementList():void {
-        this.elements_ = this.root.querySelectorAll('[ad]');
+        this.elements_ = this.root.querySelectorAll('[ad-ad][ad-form-element]');
     }
 
     private trackElements(untrack:boolean):void {
@@ -205,7 +205,7 @@ export class ADForm extends ADComponent{
 
     private setElementValue(id:string, value:any):void {
 
-        const el = this.root.querySelector<any>(`[id="${id}"]`);
+        const el = this.root.querySelector<any>(`[ad-id="${id}"]`);
         if (el) {
             
             let customEl:any = null;

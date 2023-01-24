@@ -44,7 +44,7 @@ export class ADForm extends ADComponent {
      * @param parameters
      */
     init(parameters) {
-        const meta = parameters.meta;
+        const meta = parameters?.meta;
         if (meta) {
             this.build(meta);
         }
@@ -53,7 +53,7 @@ export class ADForm extends ADComponent {
         this.validator_ = parameters.validator(this.root);
     }
     getElementData(id) {
-        const el = this.root.querySelector(`[id='${id}']`);
+        const el = this.root.querySelector(`[ad-id='${id}']`);
         const res = this.getElementValue(el);
         return res;
     }
@@ -74,7 +74,7 @@ export class ADForm extends ADComponent {
     }
     //#region  Private members 
     createElementList() {
-        this.elements_ = this.root.querySelectorAll('[ad]');
+        this.elements_ = this.root.querySelectorAll('[ad-ad][ad-form-element]');
     }
     trackElements(untrack) {
         this.elements_.forEach(el => {
@@ -156,7 +156,7 @@ export class ADForm extends ADComponent {
         return res;
     }
     setElementValue(id, value) {
-        const el = this.root.querySelector(`[id="${id}"]`);
+        const el = this.root.querySelector(`[ad-id="${id}"]`);
         if (el) {
             let customEl = null;
             if (customEl = this.isMultiselect) {
