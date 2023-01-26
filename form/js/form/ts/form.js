@@ -16,7 +16,7 @@ export class ADForm extends ADComponent {
      */
     get value() {
         let res = {};
-        if (this.validator_.isValid()) {
+        if (this.validator_ == null || this.validator_.isValid()) {
             this.elements_.forEach(el => {
                 const val = this.getElementValue(el);
                 res[el.id] = {
@@ -82,7 +82,7 @@ export class ADForm extends ADComponent {
         });
     }
     trackElement(el, untrack) {
-        let eventType = 'blur';
+        let eventType = 'keyup';
         if (this.isMultiselect(el)
             || this.isRte(el)
             || el.tagName == 'SELECT') {
@@ -92,10 +92,10 @@ export class ADForm extends ADComponent {
             eventType = 'click';
         }
         if (untrack) {
-            el.removeEventListener(eventType, this.trackElementHandler);
+            el.removeEventListener(eventType, e => this.trackElementHandler(e));
         }
         else {
-            el.addEventListener(eventType, this.trackElementHandler);
+            el.addEventListener(eventType, e => this.trackElementHandler(e));
         }
     }
     trackElementHandler(e) {
@@ -108,14 +108,14 @@ export class ADForm extends ADComponent {
     }
     isMultiselect(element) {
         let res = null;
-        if (ADMultiselect) {
-            res = ADMultiselect.getInstance(element);
+        if (element.hasAttribute('ad-ms-default-text')) {
+            res = ad.ADMultiselect.attachTo(element);
         }
         return res;
     }
     isRte(element) {
         let res = null;
-        if (ad.ADRte) {
+        if (element.hasAttribute('ad-rte')) {
             res = ad.ADRte.getInstance(element);
         }
         return res;

@@ -18,6 +18,7 @@ interface IParameter {
  *  date
  *  datetime
  *  multiselect
+ *  rte
  *  checkbox
  *  radiobutton
  * 
@@ -47,6 +48,9 @@ class ADInputGroup extends HTMLElement implements IInputGroup{
                     subType = `ad-type="${p.type}" `
                 }
                 return `<div ad-id="${p.id}" ${subType}ad-ms-default-text="Please Select" ${formElement}></div>`;
+            },
+            'rte': (p:IParameter) => {
+                return `<div ad-rte ad-id="${p.id}" ${formElement}></div>`;
             },
             'date':  (p:IParameter) => {
                 return `<input type="date" class="ad-form-control" name="${p.id}" ad-id="${p.id}" ${formElement}>`;

@@ -18,7 +18,7 @@ interface IParameters {
 export class ADForm extends ADComponent{
    
     private elements_: NodeListOf<HTMLElement>;
-    validator_: any;
+    private validator_: any;
   
     /**
     * attachTo
@@ -35,7 +35,7 @@ export class ADForm extends ADComponent{
      */
     public get value(): any {
         let res:any = {}
-        if(this.validator_.isValid()){
+        if(this.validator_ == null || this.validator_.isValid()){
             this.elements_.forEach(el=>{
                 const val = this.getElementValue(el);
                 res[el.id] = {
@@ -116,7 +116,7 @@ export class ADForm extends ADComponent{
     }
     
     private trackElement(el:HTMLElement, untrack: boolean):void {
-        let eventType = 'blur';
+        let eventType = 'keyup';
        
         if(this.isMultiselect(el)  
             || this.isRte(el)
@@ -127,9 +127,9 @@ export class ADForm extends ADComponent{
         }
         
         if(untrack){
-            el.removeEventListener(eventType, this.trackElementHandler);
+            el.removeEventListener(eventType, e=>this.trackElementHandler(e));
         } else {
-            el.addEventListener(eventType, this.trackElementHandler);
+            el.addEventListener(eventType, e=>this.trackElementHandler(e));
         }
     }
 
@@ -147,8 +147,8 @@ export class ADForm extends ADComponent{
     private isMultiselect(element: Element):any {
         
         let res:any = null;
-        if(ADMultiselect){
-            res = ADMultiselect.getInstance(element);
+        if(element.hasAttribute('ad-ms-default-text')){
+            res = ad.ADMultiselect.attachTo(element);
         }
 
         return res;
@@ -157,7 +157,7 @@ export class ADForm extends ADComponent{
     private isRte(element: Element):any {
         
         let res:any = null;
-        if(ad.ADRte){
+        if(element.hasAttribute('ad-rte')){
             res = ad.ADRte.getInstance(element);
         }
 

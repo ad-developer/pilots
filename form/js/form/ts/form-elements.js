@@ -7,6 +7,7 @@
  *  date
  *  datetime
  *  multiselect
+ *  rte
  *  checkbox
  *  radiobutton
  *
@@ -34,6 +35,9 @@ class ADInputGroup extends HTMLElement {
                     subType = `ad-type="${p.type}" `;
                 }
                 return `<div ad-id="${p.id}" ${subType}ad-ms-default-text="Please Select" ${formElement}></div>`;
+            },
+            'rte': (p) => {
+                return `<div ad-rte ad-id="${p.id}" ${formElement}></div>`;
             },
             'date': (p) => {
                 return `<input type="date" class="ad-form-control" name="${p.id}" ad-id="${p.id}" ${formElement}>`;
