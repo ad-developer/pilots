@@ -19,11 +19,7 @@ export class ADForm extends ADComponent {
         if (this.validator_ == null || this.validator_.isValid()) {
             this.elements_.forEach(el => {
                 const val = this.getElementValue(el);
-                res[el.id] = {
-                    value: this.htmlEncrypt(val),
-                    label: el.getAttribute('label'),
-                    adLabel: el.getAttribute('ad-label')
-                };
+                res[el.getAttribute('ad-id')] = val;
             });
         }
         return res;
@@ -74,7 +70,7 @@ export class ADForm extends ADComponent {
     }
     //#region  Private members 
     createElementList() {
-        this.elements_ = this.root.querySelectorAll('[ad-ad][ad-form-element]');
+        this.elements_ = this.root.querySelectorAll('[ad-id][ad-form-element]');
     }
     trackElements(untrack) {
         this.elements_.forEach(el => {
@@ -109,7 +105,7 @@ export class ADForm extends ADComponent {
     isMultiselect(element) {
         let res = null;
         if (element.hasAttribute('ad-ms-default-text')) {
-            res = ad.ADMultiselect.attachTo(element);
+            res = ADMultiselect.attachTo(element);
         }
         return res;
     }
@@ -143,7 +139,7 @@ export class ADForm extends ADComponent {
                         val = this.toInt(el.checked);
                     }
                     else {
-                        val(el).value;
+                        val = el.value;
                     }
                 }
             }
