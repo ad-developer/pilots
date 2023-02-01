@@ -72,7 +72,7 @@ export class ADForm extends ADComponent{
         this.createElementList();
         this.trackElements(false);
         
-        this.validator_ = parameters.validator(this.root);
+        this.validator_ = parameters?.validator(this.root);
     }
 
     public getElementData(id:string):any {
@@ -112,7 +112,7 @@ export class ADForm extends ADComponent{
     }
     
     private trackElement(el:HTMLElement, untrack: boolean):void {
-        let eventType = 'keyup';
+        let eventType = 'input';
        
         if(this.isMultiselect(el)  
             || this.isRte(el)

@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/filter-drawer.css">
+    <link rel="stylesheet" href="../css/filter-drawer.css">
     <title>Filter drawer</title>
     <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+        }
         .ad-form{
             display: flex;
             padding: 24px;
@@ -51,12 +58,19 @@
         <button ad-hide>Hide</button>
     </div>
     <div class="ad-toolbar">toolbar</div>
+    
     <ad-filter-drawer>
         <ad-filter-drawer-header>
+            <ad-button>
+                Clear all filters
+            </ad-button>
             <ad-close>
                 <svg viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
             </ad-close>
         </ad-filter-drawer-header>
+        <ad-filter-drawer-panel>
+
+        </ad-filter-drawer-panel>
         <ad-filter-drawer-content>
             <div class="ad-form">
                 Some information first
@@ -134,9 +148,10 @@
     </ad-filter-drawer>
     <ad-filter-drawer-scrim></ad-filter-drawer-scrim>
     <div class="ad-footer">footer</div>
-    <script src="js/filter-drawer.js"></script>
+    
+    <script src="../js/filter-drawer.js"></script>
     <script>
-        const dr = document.querySelector('ad-filter-drawer ');
+        const dr = document.querySelector('ad-filter-drawer');
         document.querySelector('[ad-show]').addEventListener('click', e=>{
             dr.show();
         });
