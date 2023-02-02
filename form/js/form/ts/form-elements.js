@@ -67,10 +67,10 @@ class ADInputGroup extends HTMLElement {
         this.setAttribute('ad-sub-type', value);
     }
     get label() {
-        return this.getAttribute('ad-title') || '';
+        return this.getAttribute('ad-label') || '';
     }
     set label(value) {
-        this.setAttribute('ad-title', value);
+        this.setAttribute('ad-label', value);
     }
 }
 window.customElements.define('ad-input-group', ADInputGroup);

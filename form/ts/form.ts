@@ -94,9 +94,18 @@ export class ADForm extends ADComponent{
     }
 
     public clear():void {
+        // Remove tracing to prevent firing 
+        // form.change event 
+        this.trackElements(true);
+        
         this.elements_.forEach(el=>{
             this.clearElement(el);
         });
+
+         // Set tracing 
+         this.trackElements(false)
+
+         this.emit('form.clear', {});
     }
 
     //#region  Private members 

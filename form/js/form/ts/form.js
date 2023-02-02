@@ -46,7 +46,7 @@ export class ADForm extends ADComponent {
         }
         this.createElementList();
         this.trackElements(false);
-        this.validator_ = parameters.validator(this.root);
+        this.validator_ = parameters?.validator(this.root);
     }
     getElementData(id) {
         const el = this.root.querySelector(`[ad-id='${id}']`);
@@ -64,9 +64,15 @@ export class ADForm extends ADComponent {
         throw new Error('Not Implemented');
     }
     clear() {
+        // Remove tracing to prevent firing 
+        // form.change event 
+        this.trackElements(true);
         this.elements_.forEach(el => {
             this.clearElement(el);
         });
+        // Set tracing 
+        this.trackElements(false);
+        this.emit('form.clear', {});
     }
     //#region  Private members 
     createElementList() {
@@ -78,7 +84,7 @@ export class ADForm extends ADComponent {
         });
     }
     trackElement(el, untrack) {
-        let eventType = 'keyup';
+        let eventType = 'input';
         if (this.isMultiselect(el)
             || this.isRte(el)
             || el.tagName == 'SELECT') {
