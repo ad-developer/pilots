@@ -5,6 +5,9 @@ class ADTextField extends HTMLElement{
 
     constructor(){
         super();
+        
+        this.handleBodyClick = this.handleBodyClick.bind(this);
+
         this.label = this.querySelector('label');
         this.inputElement = this.querySelector('[ad-input-element]');
         
@@ -23,9 +26,7 @@ class ADTextField extends HTMLElement{
 
         this.addEventListener('click', e=> {
             this.addFocusState();
-            document.body.addEventListener('click', e=>{
-                this.handleBodyClick(e);
-            });            
+            document.body.addEventListener('click',this.handleBodyClick);            
         });
     }
     
@@ -58,9 +59,7 @@ class ADTextField extends HTMLElement{
         this.focused = false;
 
         // Remove body click
-        document.body.removeEventListener('click', e=>{
-            this.handleBodyClick(e);
-        });  
+        document.body.removeEventListener('click',this.handleBodyClick);  
     }
 
     private floatLabel():void{

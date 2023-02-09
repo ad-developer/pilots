@@ -4,6 +4,7 @@ class ADTextField extends HTMLElement {
     focused = false;
     constructor() {
         super();
+        this.handleBodyClick = this.handleBodyClick.bind(this);
         this.label = this.querySelector('label');
         this.inputElement = this.querySelector('[ad-input-element]');
         if (this.inputElement.value.trim() != '') {
@@ -21,9 +22,7 @@ class ADTextField extends HTMLElement {
         });
         this.addEventListener('click', e => {
             this.addFocusState();
-            document.body.addEventListener('click', e => {
-                this.handleBodyClick(e);
-            });
+            document.body.addEventListener('click', this.handleBodyClick);
         });
     }
     handleBodyClick(event) {
@@ -50,9 +49,7 @@ class ADTextField extends HTMLElement {
         this.classList.remove('ad-form-field--focus');
         this.focused = false;
         // Remove body click
-        document.body.removeEventListener('click', e => {
-            this.handleBodyClick(e);
-        });
+        document.body.removeEventListener('click', this.handleBodyClick);
     }
     floatLabel() {
         this.label.classList.add('ad-text-field-label--float');
