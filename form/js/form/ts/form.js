@@ -2,6 +2,7 @@ import { ADComponent } from '../../shared/ts/component';
 export class ADForm extends ADComponent {
     elements_;
     validator_;
+    parameters;
     /**
     * attachTo
     * @param {Element}root
@@ -14,7 +15,7 @@ export class ADForm extends ADComponent {
     /**
      * values
      */
-    get value() {
+    get values() {
         let res = {};
         if (this.validator_ == null || this.validator_.isValid()) {
             this.elements_.forEach(el => {
@@ -24,7 +25,7 @@ export class ADForm extends ADComponent {
         }
         return res;
     }
-    set value(data) {
+    set values(data) {
         // Remove tracing to prevent firing 
         // form.change event 
         this.trackElements(true);
@@ -40,13 +41,12 @@ export class ADForm extends ADComponent {
      * @param parameters
      */
     init(parameters) {
+        this.parameters = parameters;
         const meta = parameters?.meta;
         if (meta) {
             this.build(meta);
         }
-        this.createElementList();
-        this.trackElements(false);
-        this.validator_ = parameters?.validator(this.root);
+        this.bind();
     }
     getElementData(id) {
         const el = this.root.querySelector(`[ad-id='${id}']`);
@@ -58,10 +58,25 @@ export class ADForm extends ADComponent {
     }
     /**
      * build
-     * @param {Array<object>} meta
+     *
+     * Template
+     * [
+     *  {
+     *      id: 'id'
+     *      element: 'input'
+     *      attributes: [
+     *                      { 'type': 'text'},
+     *                       ...
+     *                  ]
+     *  },
+     * ]
+     * @param {Array<IElement>} elements
      */
-    build(meta) {
-        throw new Error('Not Implemented');
+    build(elements) {
+        elements.forEach(el => {
+            this.root.innerHTML += this.buildElement(el);
+        });
+        this.bind();
     }
     clear() {
         // Remove tracing to prevent firing 
@@ -75,6 +90,28 @@ export class ADForm extends ADComponent {
         this.emit('form.clear', {});
     }
     //#region  Private members 
+    bind() {
+        this.createElementList();
+        this.trackElements(false);
+        if (this.elements_.length > 0) {
+            this.validator_ = this.parameters?.validator(this.root);
+        }
+    }
+    buildElement(element) {
+        const el = element.element.toLocaleLowerCase();
+        let end = '';
+        let attrAll = '';
+        if (el != 'input') {
+            end = `</${el}>`;
+        }
+        for (let [attr, value] of Object.entries(element.attributes)) {
+            if (value != '') {
+                value = `='${value}'`;
+            }
+            attrAll += ` ${attr}${value}`;
+        }
+        return `<${el} ${attrAll}>${end}`;
+    }
     createElementList() {
         this.elements_ = this.root.querySelectorAll('[ad-id][ad-form-element]');
     }
@@ -109,11 +146,7 @@ export class ADForm extends ADComponent {
         return res;
     }
     isMultiselect(element) {
-        let res = null;
-        if (element.hasAttribute('ad-ms-default-text')) {
-            res = ADMultiselect.attachTo(element);
-        }
-        return res;
+        return element.tagName == 'ad-ms';
     }
     isRte(element) {
         let res = null;
@@ -132,8 +165,10 @@ export class ADForm extends ADComponent {
         if (el) {
             let val;
             let customEl;
-            if (customEl = this.isMultiselect(el)) {
-                val = customEl.getSelectedData();
+            if (this.isMultiselect(el)) {
+                // TODO: Create ms interface and use it as the data type
+                // for casting instead of any.
+                val = el.values;
             }
             else if (customEl = this.isRte(el)) {
                 val = customEl.getValue();
@@ -161,8 +196,8 @@ export class ADForm extends ADComponent {
         const el = this.root.querySelector(`[ad-id="${id}"]`);
         if (el) {
             let customEl = null;
-            if (customEl = this.isMultiselect) {
-                customEl.setSelectedData(value);
+            if (this.isMultiselect(el)) {
+                el.values = value;
             }
             else if (customEl = this.isRte(el)) {
                 customEl.set(value);
@@ -186,8 +221,9 @@ export class ADForm extends ADComponent {
     }
     clearElement(el) {
         let customEl = null;
-        if (customEl = this.isMultiselect(el)) {
-            customEl.clear();
+        if (this.isMultiselect(el)) {
+            // TODO: User multiselect type
+            el.clear();
         }
         else if (customEl = this.isRte) {
             customEl.set('');
