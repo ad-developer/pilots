@@ -100,7 +100,7 @@ export class ADForm extends ADComponent {
     buildElement(element) {
         const el = element.element.toLocaleLowerCase();
         let end = '';
-        let attrAll = '';
+        let attrAll = ` ad-id='${element.id}'`;
         if (el != 'input') {
             end = `</${el}>`;
         }

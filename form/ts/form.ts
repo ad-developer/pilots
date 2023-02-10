@@ -150,7 +150,7 @@ export class ADForm extends ADComponent implements IForm{
     private buildElement(element:IElement):string {
         const el = element.element.toLocaleLowerCase();
         let end = '';
-        let attrAll = '';
+        let attrAll = ` ad-id='${element.id}'`;
         if(el != 'input'){
             end = `</${el}>`;
         }
