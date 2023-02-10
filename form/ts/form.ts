@@ -8,7 +8,8 @@ declare var ad: any;
 interface IElement {
     id:string;
     element:string;
-    attributes: Array<Object>
+    attributes: Array<Object>;
+    options: Array<Object>;
 }
 
 /**
@@ -19,21 +20,25 @@ interface IParameters {
     meta: Array<IElement>;
 }
 
+/**
+ * IForm interface
+ */
 interface IForm {
     values: any;
     getElementData(id:string):any;
     setElementData(id:string, value:any):void;
     build(meta:Array<object>):void;
-    build(meta:Array<object>):void;
 }
 
-export class ADForm extends ADComponent implements IForm{
+/**
+ * ADForm class
+ */
+export class ADForm extends ADComponent implements IForm {
    
     private elements_: NodeListOf<HTMLElement>;
     private validator_: any;
     parameters: IParameters;
 
-  
     /**
     * attachTo
     * @param {Element}root
@@ -46,6 +51,7 @@ export class ADForm extends ADComponent implements IForm{
 
     /**
      * values 
+     * getter
      */
     public get values(): any {
         let res:any = {}
@@ -59,6 +65,10 @@ export class ADForm extends ADComponent implements IForm{
         return res
     }
     
+    /**
+     * values 
+     * setter
+     */
     public set values(data:object[]){
         // Remove tracing to prevent firing 
         // form.change event 
@@ -118,6 +128,8 @@ export class ADForm extends ADComponent implements IForm{
             this.root.innerHTML += this.buildElement(el);
         });
 
+        this.applyOptions(elements);
+
         this.bind();
     }
 
@@ -138,13 +150,20 @@ export class ADForm extends ADComponent implements IForm{
 
     //#region  Private members 
 
-    private bind(){
+    private bind():void{
         this.createElementList();
         this.trackElements(false);
         
         if(this.elements_.length > 0){
             this.validator_ = this.parameters?.validator(this.root);
         }
+    }
+
+    private applyOptions(elements:Array<IElement>):void{
+        elements.filter(el=> el.options != null)
+        .forEach(el=>{
+            (el as any).values = el.options;
+        });
     }
 
     private buildElement(element:IElement):string {

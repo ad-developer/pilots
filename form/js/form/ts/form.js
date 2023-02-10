@@ -1,4 +1,7 @@
 import { ADComponent } from '../../shared/ts/component';
+/**
+ * ADForm class
+ */
 export class ADForm extends ADComponent {
     elements_;
     validator_;
@@ -14,6 +17,7 @@ export class ADForm extends ADComponent {
     }
     /**
      * values
+     * getter
      */
     get values() {
         let res = {};
@@ -25,6 +29,10 @@ export class ADForm extends ADComponent {
         }
         return res;
     }
+    /**
+     * values
+     * setter
+     */
     set values(data) {
         // Remove tracing to prevent firing 
         // form.change event 
@@ -76,6 +84,7 @@ export class ADForm extends ADComponent {
         elements.forEach(el => {
             this.root.innerHTML += this.buildElement(el);
         });
+        this.applyOptions(elements);
         this.bind();
     }
     clear() {
@@ -96,6 +105,12 @@ export class ADForm extends ADComponent {
         if (this.elements_.length > 0) {
             this.validator_ = this.parameters?.validator(this.root);
         }
+    }
+    applyOptions(elements) {
+        elements.filter(el => el.options != null)
+            .forEach(el => {
+            el.values = el.options;
+        });
     }
     buildElement(element) {
         const el = element.element.toLocaleLowerCase();
