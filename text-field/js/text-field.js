@@ -1,9 +1,22 @@
+/**
+ * <ad-test-filed
+ *  id='id'
+ *  ad-label='label'
+ *  type'text|'
+ *
+ *  >
+ * </ad-text-filed>
+ */
 class ADTextField extends HTMLElement {
     label = null;
     inputElement = null;
     focused = false;
     constructor() {
         super();
+        const type = this.getAttribute('type');
+        if (type != null && type != '') {
+            this.render(type);
+        }
         this.handleBodyClick = this.handleBodyClick.bind(this);
         this.label = this.querySelector('label');
         this.inputElement = this.querySelector('[ad-input-element]');
@@ -24,6 +37,42 @@ class ADTextField extends HTMLElement {
             this.addFocusState();
             document.body.addEventListener('click', this.handleBodyClick);
         });
+    }
+    render(type) {
+        const id = this.id;
+        const label = this.getAttribute('ad-label');
+        const formElement = 'ad-form-element';
+        const inputElement = 'ad-input-element';
+        const typeHandlers = {
+            'text': (id) => {
+                return `<input type="text" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+            },
+            'search': (id) => {
+                this.classList.add('ad-text-field--icon-left');
+                return `
+                <ad-icon class="ad-icon--20">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0V0z" fill="none"/>
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </ad-icon>
+                    <input type="text" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+            },
+            'date': (id) => {
+                this.classList.add('ad-text-field--date-time');
+                return `<input type="date" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+            },
+            'datetime': (id) => {
+                this.classList.add('ad-text-field--date-time');
+                return `<input type="datetime-local" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+            }
+        };
+        this.innerHTML = `<label for="${id}" class="ad-text-field-label">${label}</label>
+        <ad-element>${typeHandlers[type](id)}</ad-element>
+        <ad-helper-text></ad-helper-text>`;
+        this.removeAttribute('id');
+        this.removeAttribute('type');
+        this.removeAttribute('ad-label');
     }
     handleBodyClick(event) {
         if (this.isElementContainer(event.target)) {
