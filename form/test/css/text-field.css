@@ -1,0 +1,94 @@
+ad-text-field {
+  display: flex;
+  position: relative;
+  height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  border-radius: 16px; }
+  ad-text-field.ad-text-field--icon-left {
+    padding-left: 12px; }
+    ad-text-field.ad-text-field--icon-left ad-icon {
+      margin-right: 12px; }
+    ad-text-field.ad-text-field--icon-left ad-element {
+      margin-right: 32px; }
+    ad-text-field.ad-text-field--icon-left .ad-text-field-label {
+      left: 44px; }
+  ad-text-field.ad-text-field--icon-right {
+    padding-right: 12px; }
+    ad-text-field.ad-text-field--icon-right ad-element {
+      flex: 1 1 0;
+      width: auto;
+      margin-right: 32px; }
+    ad-text-field.ad-text-field--icon-right ad-icon {
+      margin-left: 12px; }
+  ad-text-field.ad-text-field--date-time {
+    padding-right: 12px; }
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-year-field,
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-month-field,
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-day-field,
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-text,
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-hour-field,
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-minute-field,
+    ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-ampm-field {
+      color: transparent; }
+  ad-text-field.ad-form-field--focus {
+    border-color: #1a73e8; }
+  ad-text-field .ad-text-field-label {
+    display: flex;
+    position: absolute;
+    font-size: 1rem;
+    top: 8px;
+    left: 16px;
+    line-height: 16px;
+    transition: all 0.1s ease-out; }
+  ad-text-field.ad-form-field--focus .ad-text-field-label {
+    color: #1a73e8; }
+  ad-text-field.ad-form-field--focus.ad-text-field--date-time {
+    padding-right: 12px; }
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-year-field,
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-month-field,
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-day-field,
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-text,
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-hour-field,
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-minute-field,
+    ad-text-field.ad-form-field--focus.ad-text-field--date-time input:in-range::-webkit-datetime-edit-ampm-field {
+      color: inherit; }
+  ad-text-field .ad-text-field-label--float {
+    top: -9px;
+    left: 12px !important;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 0.75rem;
+    background-color: #fff;
+    transition: all 0.1s ease-out; }
+  ad-text-field.ad-error {
+    border-color: red; }
+    ad-text-field.ad-error .ad-text-field-label--float {
+      color: red; }
+    ad-text-field.ad-error .ad-helper-text--show {
+      color: red; }
+
+ad-element {
+  display: flex;
+  align-items: center;
+  width: 100%; }
+  ad-element .ad-element-input {
+    border: none;
+    display: flex;
+    height: 20px;
+    padding: 0px;
+    font-size: 1rem;
+    min-width: 100%;
+    box-sizing: border-box;
+    outline: none; }
+
+ad-helper-text {
+  display: none;
+  position: absolute;
+  font-size: 0.75rem;
+  bottom: -17px;
+  left: 16px; }
+  ad-helper-text.ad-helper-text--show {
+    display: flex; }

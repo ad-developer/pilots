@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/text-field.css">
+    <link rel="stylesheet" href="css/multiselect.css">
+    <link rel="stylesheet" href="css/test.css">
+</head>
+<body>
+    <div class="ad-container" ad-container>
+
+    </div>
+    <script src="js/multiselect.js"></script>
+    <script src="js/text-field.js"></script>
+    <script src="js/component.js"></script>
+    <script src="js/form.js"></script>
+    <script>
+        const c = document.querySelector('[ad-container]');
+        const els = [
+            {
+                id: 'search',
+                tag: 'ad-text-field',
+                attributes: [
+                    {'type': 'search'},
+                    {'ad-label': 'Search'}
+                ]
+            },
+            {
+                id: 'fullName',
+                tag: 'ad-text-field',
+                attributes: [
+                    {'type': 'text'},
+                    {'ad-label': 'Full name'}
+                ]
+            },
+            {
+                id: 'startDate',
+                tag: 'ad-text-field',
+                attributes: [
+                    {'type': 'date'},
+                    {'ad-label': 'Start date'}
+                ]
+            },
+            {
+                id: 'states',
+                tag: 'ad-ms',
+                attributes: [
+                    {'type': 'date'},
+                    {'ad-label': 'States'},
+                    {'ad-form-element': ''}
+                ],
+                options:[
+                            {value: 'Alaska', label: 'Alaska'}, 
+                            {value: 'Arizona', label: 'Arizona'}, 
+                            {value: 'California', label: 'California'}, 
+                            {value: 'Utah', label: 'Utah'}, 
+                            {value: 'Nevada', label: 'Nevada'}, 
+                            {value: 'Colorado', label: 'Colorado'}
+                        ]
+            }
+        ];
+        const form = ADForm.attachTo(c, {
+            meta:els
+        });
+        form.values = {
+            'search': 'Search data',
+            'fullName': 'John Smith',
+            'startDate': '2023-02-22',
+            'states': ['Arizona','Colorado','Nevada']
+        };
+        form.clear();
+    </script>
+
+</body>
+</html>

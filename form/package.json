@@ -1,6 +1,7 @@
 {
     "devDependencies": {
         "del-cli": "^5.0.0",
+        "http-server": "^14.1.1",
         "node-sass": "^8.0.0",
         "typescript": "^4.9.4"
     },
@@ -15,6 +16,12 @@
         "dist": "npm run build && npm run build:min",
         "watch:css": "node-sass -w scss -o css",
         "watch:js": "tsc --watch --pretty",
-        "watch": "npm run watch:css && npm run watch:js"
+        "watch": "npm run watch:css && npm run watch:js",
+        "server": "http-server  ./test/",
+        "copy": "npm run copy:form & npm run copy:ms & npm run copy:tf & npm run copy:ic",
+        "copy:form": "cp js/form/ts/form.js test/js && cp js/shared/ts/component.js test/js",
+        "copy:ms": "cp ../multiselect/js/multiselect.js test/js & cp ../multiselect/css/multiselect.css test/css",
+        "copy:tf": "cp ../text-field/js/text-field.js test/js & cp ../text-field/css/text-field.css test/css",
+        "copy:ic": "cp ../icon/css/icon.css test/css"
     }
 }

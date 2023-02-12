@@ -7,9 +7,9 @@ declare var ad: any;
 
 interface IElement {
     id:string;
-    element:string;
-    attributes: Array<Object>;
-    options: Array<Object>;
+    tag:string;
+    attributes: Array<Map<string, string>>;
+    options: Array<Map<string, string>>;
 }
 
 /**
@@ -114,7 +114,7 @@ export class ADForm extends ADComponent implements IForm {
      * [
      *  {
      *      id: 'id'
-     *      element: 'input'
+     *      tag: 'input'
      *      attributes: [
      *                      { 'type': 'text'},
      *                       ...
@@ -155,30 +155,37 @@ export class ADForm extends ADComponent implements IForm {
         this.trackElements(false);
         
         if(this.elements_.length > 0){
-            this.validator_ = this.parameters?.validator(this.root);
+            this.validator_ = this.parameters.validator?.(this.root);
         }
     }
 
     private applyOptions(elements:Array<IElement>):void{
         elements.filter(el=> el.options != null)
         .forEach(el=>{
-            (el as any).values = el.options;
+            const element = this.root.querySelector(`[ad-id='${el.id}']`);
+            (element as any).bind(el.options);
         });
     }
 
     private buildElement(element:IElement):string {
-        const el = element.element.toLocaleLowerCase();
+        const el = element.tag.toLowerCase();
         let end = '';
         let attrAll = ` ad-id='${element.id}'`;
+        if(element.tag == 'ad-text-field'){
+            attrAll = ` id='${element.id}'`;
+        }
+        
         if(el != 'input'){
             end = `</${el}>`;
         }
-        for(let [attr, value] of Object.entries(element.attributes)){
-            if(value != ''){
-                value =  `='${value}'`;
+        element.attributes.forEach(item=>{
+            for(let [attr, value] of Object.entries(item)){
+                if(value != ''){
+                    value =  `='${value}'`;
+                }
+                attrAll += ` ${attr}${value}`; 
             }
-            attrAll += ` ${attr}${value}`; 
-        }
+        });
         return `<${el} ${attrAll}>${end}`;
     }
 
@@ -222,7 +229,7 @@ export class ADForm extends ADComponent implements IForm {
     }
 
     private isMultiselect(element: Element):boolean {
-        return element.tagName == 'ad-ms';
+        return element.tagName == 'AD-MS';
     }
     
     private isRte(element: Element):any {
@@ -298,6 +305,7 @@ export class ADForm extends ADComponent implements IForm {
                     el.innerHTML = this.htmlDecrypt(value);
                 } else {
                     el.value = this.htmlDecrypt(value);
+                    this.emit('input', null, null, el);
                 }
             }
             if(el.tagName == 'SELECT') {
@@ -311,10 +319,10 @@ export class ADForm extends ADComponent implements IForm {
         if(this.isMultiselect(el)){
             // TODO: User multiselect type
             (el as any).clear();
-        } else if(customEl = this.isRte){
+        } else if(customEl = this.isRte(el)){
             customEl.set('');
         } else if(el.tagName == 'SELECT'){
-
+            //TODO: 
         } else {
             if(this.isClickType(el)){
                 (el as HTMLInputElement).checked = false;
@@ -323,6 +331,7 @@ export class ADForm extends ADComponent implements IForm {
                     el.innerHTML = '';
                 } else {
                     (el as HTMLInputElement).value = '';
+                    this.emit('input', null, null, el);
                 }
             }
         }

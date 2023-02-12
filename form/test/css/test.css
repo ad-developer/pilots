@@ -27,9 +27,17 @@ body{
     width: 50%;
     margin-right: 24px;
 }
-
 .ad-column-50:last-child{
     margin-right: 0px;
     padding: 0px;
     margin: 0px;
+}
+
+.ad-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-top: 100px;
+    margin-left: 300px;
+    width: 250px;
 }
