@@ -42,6 +42,8 @@ ad-ms{
 
         & ad-ms-header-text {
             padding-left: 12px;
+            left: 20px;
+            right: 20px;
         }
     }
 
@@ -92,6 +94,8 @@ ad-ms-header-content {
    
     & .ad-ms-search {
         display: none;
+        position: absolute;
+        right: 20px;
         &--selected svg{
             fill: #1a73e8;
         }
@@ -122,11 +126,15 @@ ad-ms-header-content {
 
     & ad-ms-header-text {
         display: flex;
-        position: relative;
+        position: absolute;
         align-items: center;
         height: 20px;
-        width: 100%;
+        width: auto;
+        margin-right: 20px;
         overflow: hidden;
+        white-space: nowrap;
+        right: 0px;
+        left: 0px;
     }
 
     & ad-search-box {
@@ -151,6 +159,10 @@ ad-ms-header-content {
             border-bottom: 1px solid #1a73e8;
             outline: none;
         }
+    }
+    & .ad-ms-arrow {
+        position: absolute;
+        right: 0px;
     }
 }
 

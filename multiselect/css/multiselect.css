@@ -23,7 +23,9 @@ ad-ms {
     ad-ms.ad-ms--focus .ad-ms-arrow {
       rotate: 180deg; }
     ad-ms.ad-ms--focus ad-ms-header-text {
-      padding-left: 12px; }
+      padding-left: 12px;
+      left: 20px;
+      right: 20px; }
   ad-ms .ad-ms-search,
   ad-ms .ad-ms-check {
     cursor: pointer;
@@ -59,7 +61,9 @@ ad-ms-header-content {
   position: relative;
   align-items: center; }
   ad-ms-header-content .ad-ms-search {
-    display: none; }
+    display: none;
+    position: absolute;
+    right: 20px; }
     ad-ms-header-content .ad-ms-search--selected svg {
       fill: #1a73e8; }
   ad-ms-header-content .ad-ms-check {
@@ -77,11 +81,15 @@ ad-ms-header-content {
       display: none; }
   ad-ms-header-content ad-ms-header-text {
     display: flex;
-    position: relative;
+    position: absolute;
     align-items: center;
     height: 20px;
-    width: 100%;
-    overflow: hidden; }
+    width: auto;
+    margin-right: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    right: 0px;
+    left: 0px; }
   ad-ms-header-content ad-search-box {
     display: none;
     position: absolute;
@@ -101,6 +109,9 @@ ad-ms-header-content {
       border: none;
       border-bottom: 1px solid #1a73e8;
       outline: none; }
+  ad-ms-header-content .ad-ms-arrow {
+    position: absolute;
+    right: 0px; }
 
 ad-ms-body {
   display: none;
