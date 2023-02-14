@@ -1,7 +1,11 @@
+import { ADComponent } from '../../shared/ts/component';
 /**
  * ADForm class
  */
-class ADForm extends ADComponent {
+export class ADForm extends ADComponent {
+    elements_;
+    validator_;
+    parameters;
     /**
     * attachTo
     * @param {Element}root
@@ -99,7 +103,7 @@ class ADForm extends ADComponent {
         this.createElementList();
         this.trackElements(false);
         if (this.elements_.length > 0) {
-            this.validator_ = this.parameters.validator?.(this.root);
+            this.validator_ = this.parameters?.validator?.(this.root);
         }
     }
     applyOptions(elements) {

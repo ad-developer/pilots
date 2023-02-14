@@ -50,6 +50,10 @@ ad-ms{
         cursor: pointer;
         pointer-events: inherit;
     }
+    
+    & .ad-ms-arrow{
+        pointer-events: inherit;
+    }
 }
 
 // -------------------------
@@ -206,6 +210,16 @@ ad-ms-li {
                 display: none;
             }
         }
+    }
+
+    & ad-ms-text {
+        display: flex;
+        position: absolute;
+        margin-right: 16px;
+        left: 44px;
+        right: 0px;
+        white-space: nowrap;
+        overflow: hidden;
     }
 }
 

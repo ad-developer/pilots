@@ -2,7 +2,7 @@
 /**
  * ADComponent
  */
-class ADComponent {
+export class ADComponent {
     root;
     /**
      * attachTo

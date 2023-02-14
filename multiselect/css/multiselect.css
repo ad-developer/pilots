@@ -28,6 +28,8 @@ ad-ms {
   ad-ms .ad-ms-check {
     cursor: pointer;
     pointer-events: inherit; }
+  ad-ms .ad-ms-arrow {
+    pointer-events: inherit; }
 
 ad-ms-header {
   display: flex;
@@ -140,6 +142,14 @@ ad-ms-li {
       display: flex; }
     ad-ms-li .ad-ms-li-check--selected .ad-ms-not-selected {
       display: none; }
+  ad-ms-li ad-ms-text {
+    display: flex;
+    position: absolute;
+    margin-right: 16px;
+    left: 44px;
+    right: 0px;
+    white-space: nowrap;
+    overflow: hidden; }
 
 ad-ms-li:nth-child(even) {
   background-color: #f9f9f9; }

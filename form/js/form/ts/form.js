@@ -103,7 +103,7 @@ export class ADForm extends ADComponent {
         this.createElementList();
         this.trackElements(false);
         if (this.elements_.length > 0) {
-            this.validator_ = this.parameters.validator?.(this.root);
+            this.validator_ = this.parameters?.validator?.(this.root);
         }
     }
     applyOptions(elements) {

@@ -155,7 +155,7 @@ export class ADForm extends ADComponent implements IForm {
         this.trackElements(false);
         
         if(this.elements_.length > 0){
-            this.validator_ = this.parameters.validator?.(this.root);
+            this.validator_ = this.parameters?.validator?.(this.root);
         }
     }
 
