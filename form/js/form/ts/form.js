@@ -3,9 +3,11 @@ import { ADComponent } from '../../shared/ts/component';
  * ADForm class
  */
 export class ADForm extends ADComponent {
-    elements_;
-    validator_;
-    parameters;
+    elements_ = null;
+    validator_ = null;
+    parameters = null;
+    change = false;
+    timerId = undefined;
     /**
     * attachTo
     * @param {Element}root
@@ -54,7 +56,9 @@ export class ADForm extends ADComponent {
         if (meta) {
             this.build(meta);
         }
-        this.bind();
+        else {
+            this.bind();
+        }
     }
     getElementData(id) {
         const el = this.root.querySelector(`[ad-id='${id}']`);
@@ -159,7 +163,34 @@ export class ADForm extends ADComponent {
         }
     }
     trackElementHandler(e) {
-        this.emit('form.change', { event: e });
+        const fun = () => {
+            this.emit('form.change', { event: e });
+        };
+        if (this.parameters?.throttling) {
+            let delay = this.parameters.delay;
+            if (!delay) {
+                delay = 1000;
+            }
+            this.trackElementHandlerWithDelay(fun, delay);
+        }
+        else {
+            fun();
+        }
+    }
+    trackElementHandlerWithDelay(cb, delay) {
+        if (this.timerId) {
+            this.change = true;
+            return;
+        }
+        cb();
+        // Schedule a setTimeout after delay seconds
+        this.timerId = setTimeout(() => {
+            if (this.change) {
+                cb();
+            }
+            this.change = false;
+            this.timerId = undefined;
+        }, delay);
     }
     isClickType(el) {
         const res = el.matches('[type="checkbox"]')

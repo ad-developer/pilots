@@ -5,6 +5,10 @@ import {ADComponent} from '../../shared/ts/component';
  */
 declare var ad: any;
 
+interface IThrottle {
+    (): void;
+}
+
 interface IElement {
     id:string;
     tag:string;
@@ -18,6 +22,8 @@ interface IElement {
 interface IParameters {
     validator: (root:Element)=>{};
     meta: Array<IElement>;
+    throttling: boolean;
+    delay: number; 
 }
 
 /**
@@ -35,9 +41,11 @@ interface IForm {
  */
 export class ADForm extends ADComponent implements IForm {
    
-    private elements_: NodeListOf<HTMLElement>;
-    private validator_: any;
-    parameters: IParameters;
+    private elements_: NodeListOf<HTMLElement> = null;
+    private validator_: any = null;
+    parameters: IParameters = null;
+    change: boolean = false;
+    timerId: any = undefined;
 
     /**
     * attachTo
@@ -92,9 +100,9 @@ export class ADForm extends ADComponent implements IForm {
 
         if(meta){
             this.build(meta);
+        } else {
+            this.bind();
         }
-
-        this.bind();
     }
 
     public getElementData(id:string):any {
@@ -218,7 +226,36 @@ export class ADForm extends ADComponent implements IForm {
     }
 
     private trackElementHandler(e:Event):void {
-        this.emit('form.change', {event: e});
+        const fun = ()=>{
+            this.emit('form.change', {event: e});
+        }
+        if(this.parameters?.throttling){
+            
+            let delay = this.parameters.delay;
+            if(!delay){
+                delay = 1000;
+            }
+            this.trackElementHandlerWithDelay(fun, delay);
+        } else {
+            fun();
+        }
+    }
+
+    private trackElementHandlerWithDelay(cb:IThrottle, delay:number):void{
+        if (this.timerId) {
+            this.change = true;
+            return;
+        }
+
+        cb();
+        // Schedule a setTimeout after delay seconds
+        this.timerId  =  setTimeout(()=>{
+            if(this.change){
+                cb();
+            }     
+            this.change = false;
+            this.timerId  =  undefined;
+        }, delay)
     }
 
     private isClickType(el:Element):boolean {

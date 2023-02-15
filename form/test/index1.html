@@ -67,8 +67,11 @@
             }
         ];
         const form = ADForm.attachTo(c, {
-            meta:els
+            meta:els,
+            throttling: true,
+            delay: 3000
         });
+        /*
         form.values = {
             'search': 'Search data',
             'fullName': 'John Smith',
@@ -76,6 +79,10 @@
             'states': ['Arizona','Colorado','Nevada']
         };
         form.clear();
+        */
+        c.addEventListener('form.change',e=>{
+            console.log(form.values);
+        })
     </script>
 
 </body>
