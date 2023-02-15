@@ -81,7 +81,8 @@
         form.clear();
         */
         c.addEventListener('form.change',e=>{
-            console.log(form.values);
+            const el = e.detail.event.target;
+            console.log(el.value);
         })
     </script>
 

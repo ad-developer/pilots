@@ -162,7 +162,7 @@ class ADForm extends ADComponent {
         }
     }
     trackElementHandler(e) {
-        const fun = () => {
+        const fun = (e) => {
             this.emit('form.change', { event: e });
         };
         if (this.parameters?.throttling) {
@@ -170,22 +170,22 @@ class ADForm extends ADComponent {
             if (!delay) {
                 delay = 1000;
             }
-            this.trackElementHandlerWithDelay(fun, delay);
+            this.trackElementHandlerWithDelay(fun, e, delay);
         }
         else {
-            fun();
+            fun(e);
         }
     }
-    trackElementHandlerWithDelay(cb, delay) {
+    trackElementHandlerWithDelay(cb, event, delay) {
         if (this.timerId) {
             this.change = true;
             return;
         }
-        cb();
+        cb(event);
         // Schedule a setTimeout after delay seconds
         this.timerId = setTimeout(() => {
             if (this.change) {
-                cb();
+                cb(event);
             }
             this.change = false;
             this.timerId = undefined;

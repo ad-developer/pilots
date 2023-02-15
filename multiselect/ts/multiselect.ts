@@ -188,11 +188,12 @@ class ADMultiselect extends HTMLElement {
         const el = e.currentTarget as HTMLElement;
         const value = el.getAttribute('ad-value');
        
-        this.selectItem(el, value);
-        this.notify(value);
+        const isSelected = this.selectItem(el, value);
+        
+        this.notify(value, isSelected);
     }
 
-    private selectItem(listItem:HTMLElement, value:string):void{
+    private selectItem(listItem:HTMLElement, value:string):boolean{
         const checkBox = listItem.querySelector('[ad-checkbox]');
         const cssClass = 'ad-ms-li-check--selected';
         const isSelected = listItem.hasAttribute('selected');
@@ -209,6 +210,8 @@ class ADMultiselect extends HTMLElement {
 
         this.filter();
         this.updateHeader();
+
+        return !isSelected;
     }
 
     private updateHeader():void{
@@ -230,9 +233,13 @@ class ADMultiselect extends HTMLElement {
         ht.innerHTML = value;
     }
 
-    private notify(value:string):void{
+    private notify(value:string, selected:boolean):void{
         const  evt = new CustomEvent('change', {
-            detail: this.selList,
+            detail: { 
+                values: this.selList,
+                value: value,
+                selected: selected
+            },
             bubbles: true,
           });
         this.dispatchEvent(evt);

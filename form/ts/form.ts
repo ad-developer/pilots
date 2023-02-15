@@ -6,7 +6,7 @@ import {ADComponent} from '../../shared/ts/component';
 declare var ad: any;
 
 interface IThrottle {
-    (): void;
+    (event:Event): void;
 }
 
 interface IElement {
@@ -226,7 +226,7 @@ export class ADForm extends ADComponent implements IForm {
     }
 
     private trackElementHandler(e:Event):void {
-        const fun = ()=>{
+        const fun = (e:Event)=>{
             this.emit('form.change', {event: e});
         }
         if(this.parameters?.throttling){
@@ -235,23 +235,23 @@ export class ADForm extends ADComponent implements IForm {
             if(!delay){
                 delay = 1000;
             }
-            this.trackElementHandlerWithDelay(fun, delay);
+            this.trackElementHandlerWithDelay(fun, e, delay);
         } else {
-            fun();
+            fun(e);
         }
     }
 
-    private trackElementHandlerWithDelay(cb:IThrottle, delay:number):void{
+    private trackElementHandlerWithDelay(cb:IThrottle, event:Event,  delay:number):void{
         if (this.timerId) {
             this.change = true;
             return;
         }
 
-        cb();
+        cb(event);
         // Schedule a setTimeout after delay seconds
         this.timerId  =  setTimeout(()=>{
             if(this.change){
-                cb();
+                cb(event);
             }     
             this.change = false;
             this.timerId  =  undefined;
