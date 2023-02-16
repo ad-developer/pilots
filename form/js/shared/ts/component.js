@@ -3,7 +3,6 @@
  * ADComponent
  */
 export class ADComponent {
-    root;
     /**
      * attachTo
      * @param {Element}root

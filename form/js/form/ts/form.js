@@ -3,11 +3,15 @@ import { ADComponent } from '../../shared/ts/component';
  * ADForm class
  */
 export class ADForm extends ADComponent {
-    elements_ = null;
-    validator_ = null;
-    parameters = null;
-    change = false;
-    timerId = undefined;
+    constructor() {
+        super(...arguments);
+        this.elements_ = null;
+        this.validator_ = null;
+        this.parameters = null;
+        this.change = false;
+        this.timerId = undefined;
+        //#endregion
+    }
     /**
     * attachTo
     * @param {Element}root
