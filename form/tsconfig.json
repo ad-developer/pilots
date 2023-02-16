@@ -20,7 +20,7 @@
     "sourceMap": false,
     "strict": false,
     "strictNullChecks": false,
-    "target": "es2020",
+    "target": "es2017",
     "outDir": "js"   
   },
   "include": [

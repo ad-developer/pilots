@@ -56,7 +56,7 @@ export class ADForm extends ADComponent {
      */
     init(parameters) {
         this.parameters = parameters;
-        const meta = parameters?.meta;
+        const meta = parameters === null || parameters === void 0 ? void 0 : parameters.meta;
         if (meta) {
             this.build(meta);
         }
@@ -108,10 +108,11 @@ export class ADForm extends ADComponent {
     }
     //#region  Private members 
     bind() {
+        var _a, _b;
         this.createElementList();
         this.trackElements(false);
         if (this.elements_.length > 0) {
-            this.validator_ = this.parameters?.validator?.(this.root);
+            this.validator_ = (_b = (_a = this.parameters) === null || _a === void 0 ? void 0 : _a.validator) === null || _b === void 0 ? void 0 : _b.call(_a, this.root);
         }
     }
     applyOptions(elements) {
@@ -167,10 +168,11 @@ export class ADForm extends ADComponent {
         }
     }
     trackElementHandler(e) {
+        var _a;
         const fun = (e) => {
             this.emit('form.change', { event: e });
         };
-        if (this.parameters?.throttling) {
+        if ((_a = this.parameters) === null || _a === void 0 ? void 0 : _a.throttling) {
             let delay = this.parameters.delay;
             if (!delay) {
                 delay = 1000;
