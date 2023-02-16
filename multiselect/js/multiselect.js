@@ -8,18 +8,6 @@
  *      ></ad-ms>
  */
 class ADMultiselect extends HTMLElement {
-    label = null;
-    focused = false;
-    sBtn = null;
-    query = '';
-    scBtn = null;
-    checked = false;
-    listContainer = null;
-    selList = null;
-    list;
-    sBox = null;
-    sBoxCon = null;
-    expBtn = null;
     set values(data) {
         this.clear();
         data.forEach(item => {
@@ -35,6 +23,17 @@ class ADMultiselect extends HTMLElement {
     }
     constructor() {
         super();
+        this.label = null;
+        this.focused = false;
+        this.sBtn = null;
+        this.query = '';
+        this.scBtn = null;
+        this.checked = false;
+        this.listContainer = null;
+        this.selList = null;
+        this.sBox = null;
+        this.sBoxCon = null;
+        this.expBtn = null;
         this.handleBodyClick = this.handleBodyClick.bind(this);
         this.selList = [];
         const label = this.getAttribute('ad-label');

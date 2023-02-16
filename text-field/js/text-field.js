@@ -8,11 +8,11 @@
  * </ad-text-filed>
  */
 class ADTextField extends HTMLElement {
-    label = null;
-    inputElement = null;
-    focused = false;
     constructor() {
         super();
+        this.label = null;
+        this.inputElement = null;
+        this.focused = false;
         const type = this.getAttribute('type');
         if (type != null && type != '') {
             this.render(type);
