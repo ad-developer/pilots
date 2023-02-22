@@ -38,6 +38,7 @@ ad-ms{
 
         & .ad-ms-arrow {
             rotate: (180deg);
+            pointer-events: inherit;
         }
 
         & ad-ms-header-text {
@@ -50,10 +51,6 @@ ad-ms{
     & .ad-ms-search,
     & .ad-ms-check {
         cursor: pointer;
-        pointer-events: inherit;
-    }
-    
-    & .ad-ms-arrow{
         pointer-events: inherit;
     }
 }

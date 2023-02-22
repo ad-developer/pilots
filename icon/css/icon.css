@@ -26,3 +26,9 @@ ad-icon svg {
   height: 100%;
   fill: val(--ad-icon-fill-color, #000);
   pointer-events: none; }
+
+.ad-icon--rotate-180 svg {
+  rotate: 180deg; }
+
+.ad-icon--rotate-90 svg {
+  rotate: 90deg; }

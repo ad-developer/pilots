@@ -21,7 +21,8 @@ ad-ms {
     ad-ms.ad-ms--focus .ad-ms-label--float {
       color: #1a73e8; }
     ad-ms.ad-ms--focus .ad-ms-arrow {
-      rotate: 180deg; }
+      rotate: 180deg;
+      pointer-events: inherit; }
     ad-ms.ad-ms--focus ad-ms-header-text {
       padding-left: 12px;
       left: 20px;
@@ -29,8 +30,6 @@ ad-ms {
   ad-ms .ad-ms-search,
   ad-ms .ad-ms-check {
     cursor: pointer;
-    pointer-events: inherit; }
-  ad-ms .ad-ms-arrow {
     pointer-events: inherit; }
 
 ad-ms-header {

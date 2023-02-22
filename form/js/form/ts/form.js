@@ -55,6 +55,7 @@ export class ADForm extends ADComponent {
      * @param parameters
      */
     init(parameters) {
+        this.trackElementHandler = this.trackElementHandler.bind(this);
         this.parameters = parameters;
         const meta = parameters === null || parameters === void 0 ? void 0 : parameters.meta;
         if (meta) {
@@ -161,10 +162,10 @@ export class ADForm extends ADComponent {
             eventType = 'click';
         }
         if (untrack) {
-            el.removeEventListener(eventType, e => this.trackElementHandler(e));
+            el.removeEventListener(eventType, this.trackElementHandler);
         }
         else {
-            el.addEventListener(eventType, e => this.trackElementHandler(e));
+            el.addEventListener(eventType, this.trackElementHandler);
         }
     }
     trackElementHandler(e) {

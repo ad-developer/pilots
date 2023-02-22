@@ -95,6 +95,8 @@ export class ADForm extends ADComponent implements IForm {
      * @param parameters 
      */
     override init(parameters: IParameters): void {
+        this.trackElementHandler = this.trackElementHandler.bind(this);
+
         this.parameters = parameters;
         const meta = parameters?.meta;
 
@@ -219,9 +221,9 @@ export class ADForm extends ADComponent implements IForm {
         }
         
         if(untrack){
-            el.removeEventListener(eventType, e=>this.trackElementHandler(e));
+            el.removeEventListener(eventType, this.trackElementHandler);
         } else {
-            el.addEventListener(eventType, e=>this.trackElementHandler(e));
+            el.addEventListener(eventType, this.trackElementHandler);
         }
     }
 
