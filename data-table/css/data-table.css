@@ -47,6 +47,16 @@ ad-dt {
   padding-left: 16px;
   height: 56px;
   color: rgba(0, 0, 0, 0.87); }
+  .ad-dt__header-cell--align-right {
+    text-align: right; }
+  .ad-dt__header-cell--align-center {
+    text-align: center; }
+  .ad-dt__header-cell--wrap {
+    white-space: normal; }
+    .ad-dt__header-cell--wrap ad-dt-c-text {
+      white-space: normal !important; }
+  .ad-dt__header-cell--sort {
+    cursor: pointer; }
   .ad-dt__header-cell ad-dt-c {
     display: inline-flex;
     flex: 0 0 auto;
@@ -105,3 +115,9 @@ ad-dt {
   padding-left: 16px;
   height: 52px;
   color: rgba(0, 0, 0, 0.87); }
+  .ad-dt__cell--align-right {
+    text-align: right; }
+  .ad-dt__cell--align-center {
+    text-align: center; }
+  .ad-dt__cell--wrap {
+    white-space: normal; }

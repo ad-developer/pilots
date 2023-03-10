@@ -83,8 +83,8 @@ export class ADForm extends ADComponent implements IForm {
         this.trackElements(true);
         
         // Bind elements 
-        for (const [id, value] of Object.entries(data)) {
-            this.setElementValue(id, value);
+        for (const id in data) {
+            this.setElementValue(id, data[id]);
         }
         // Set tracing 
         this.trackElements(false);
@@ -189,7 +189,9 @@ export class ADForm extends ADComponent implements IForm {
             end = `</${el}>`;
         }
         element.attributes.forEach(item=>{
-            for(let [attr, value] of Object.entries(item)){
+            //for(let [attr, value] of Object.entries(item)){
+            for(const attr in item){
+                let value = item.get(attr);
                 if(value != ''){
                     value =  `='${value}'`;
                 }

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../icon/css/icon.css">
+    <link rel="stylesheet" href="../css/data-table.css">
+    <link rel="stylesheet" href="css/test.css">
+</head>
+<body>
+    <div class="ad-container">
+       <ad-dt class="ad-dt__table--sticky-header ad-dt__table--small" style="height: 200px; width: 100%;"></ad-dt>
+    </div>
+    <script src="../js/data-table.js"></script>
+    <script>
+        const tbl = document.querySelector('ad-dt');
+        tbl.addHandler({ key:'indicator', 
+        handler: (conf, rec)=>{
+                if(rec.indicator == 'red'){
+                    return '<div style="background-color: red; width: 20px; height: 20px; border-radius: 50%"></div>'
+                } 
+                else if(rec.indicator == 'green'){
+                    return '<div style="background-color: green; width: 20px; height: 20px; border-radius: 50%"></div>'
+                }
+            }
+        });
+
+        tbl.addHandler({ key:'att', 
+        handler: (conf, rec)=>{
+                if(rec.att){
+                    return `<ad-icon>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path>
+                                    <circle cx="12" cy="12" r="3.5"></circle>
+                                </svg>
+                            </ad-icon>`;
+                } 
+                else {
+                    return '';
+                }
+            }
+        });
+        const config = [
+            {
+                id: 'colOne',
+                label: 'Column',
+                width: 223,
+                sort: true
+            },
+            {
+                id: 'colTwo',
+                label: 'Column Two',
+                width: 200,
+                rWrap: true
+            },
+            {
+                id: 'colThree',
+                label: 'Column Three',
+                width: 100
+            },
+            {
+                id: 'colFour',
+                label: 'Column Four',
+                width: 200,
+                sort: true
+            },
+            {
+                id: 'indicator',
+                custom: 'indicator',
+                label: 'Column Four',
+                width: 60
+            },
+            {
+                id: 'att',
+                custom: 'att',
+                label: '',
+                width: 40
+            }
+        ];
+        
+        tbl.config(config);
+        
+        const data = [
+            {
+                id: 'one',
+                colOne: 'Data one',
+                colTwo: 'Data Two',
+                colThree: 'Data three',
+                colFour: 'Data Four',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'two',
+                colOne: 'Data one1',
+                colTwo: 'Data Two1',
+                colThree: 'Data three1',
+                colFour: 'Data Four1',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'three',
+                colOne: 'Data one2',
+                colTwo: 'Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text',
+                colThree: 'Data three2',
+                colFour: 'Data Four2',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'four',
+                colOne: 'Data one3',
+                colTwo: 'Data Two3',
+                colThree: 'Data three3',
+                colFour: 'Data Four3',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'five',
+                colOne: 'Data one4',
+                colTwo: 'Data Two4',
+                colThree: 'Data three4',
+                colFour: 'Data Four4',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'six',
+                colOne: 'Data one5',
+                colTwo: 'Data Two5',
+                colThree: 'Data three5',
+                colFour: 'Data Four5',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'one',
+                colOne: 'Data one',
+                colTwo: 'Data Two',
+                colThree: 'Data three',
+                colFour: 'Data Four',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'two',
+                colOne: 'Data one1',
+                colTwo: 'Data Two1',
+                colThree: 'Data three1',
+                colFour: 'Data Four1',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'three',
+                colOne: 'Data one2',
+                colTwo: 'Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text',
+                colThree: 'Data three2',
+                colFour: 'Data Four2',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'four',
+                colOne: 'Data one3',
+                colTwo: 'Data Two3',
+                colThree: 'Data three3',
+                colFour: 'Data Four3',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'five',
+                colOne: 'Data one4',
+                colTwo: 'Data Two4',
+                colThree: 'Data three4',
+                colFour: 'Data Four4',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'six',
+                colOne: 'Data one5',
+                colTwo: 'Data Two5',
+                colThree: 'Data three5',
+                colFour: 'Data Four5',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'one',
+                colOne: 'Data one',
+                colTwo: 'Data Two',
+                colThree: 'Data three',
+                colFour: 'Data Four',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'two',
+                colOne: 'Data one1',
+                colTwo: 'Data Two1',
+                colThree: 'Data three1',
+                colFour: 'Data Four1',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'three',
+                colOne: 'Data one2',
+                colTwo: 'Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text',
+                colThree: 'Data three2',
+                colFour: 'Data Four2',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'four',
+                colOne: 'Data one3',
+                colTwo: 'Data Two3',
+                colThree: 'Data three3',
+                colFour: 'Data Four3',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'five',
+                colOne: 'Data one4',
+                colTwo: 'Data Two4',
+                colThree: 'Data three4',
+                colFour: 'Data Four4',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'six',
+                colOne: 'Data one5',
+                colTwo: 'Data Two5',
+                colThree: 'Data three5',
+                colFour: 'Data Four5',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'one',
+                colOne: 'Data one',
+                colTwo: 'Data Two',
+                colThree: 'Data three',
+                colFour: 'Data Four',
+                indicator: 'red',
+                att: true
+            },
+            {
+                id: 'two',
+                colOne: 'Data one1',
+                colTwo: 'Data Two1',
+                colThree: 'Data three1',
+                colFour: 'Data Four1',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'three',
+                colOne: 'Data one2',
+                colTwo: 'Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text Data Two2 long text',
+                colThree: 'Data three2',
+                colFour: 'Data Four2',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'four',
+                colOne: 'Data one3',
+                colTwo: 'Data Two3',
+                colThree: 'Data three3',
+                colFour: 'Data Four3',
+                indicator: 'red',
+                att: false
+            },
+            {
+                id: 'five',
+                colOne: 'Data one4',
+                colTwo: 'Data Two4',
+                colThree: 'Data three4',
+                colFour: 'Data Four4',
+                indicator: 'green',
+                att: true
+            },
+            {
+                id: 'six',
+                colOne: 'Data one5',
+                colTwo: 'Data Two5',
+                colThree: 'Data three5',
+                colFour: 'Data Four5',
+                indicator: 'red',
+                att: true
+            }
+        ];
+        
+        tbl.bind(data);
+        tbl.addEventListener('datatable.sort', e=>{
+            console.log(`id: ${e.detail.id} dir: ${e.detail.dir}`);
+        });
+        tbl.addEventListener('datatable.select', e=>{
+            console.log(`id: ${e.detail.id}`);
+        });
+
+    </script>
+</body>
+</html>

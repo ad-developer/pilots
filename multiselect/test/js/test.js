@@ -10,6 +10,12 @@ const stData = [
 ];
 states.bind(stData);
 
+
+const clearBtn = document.querySelector('[ad-clear]')
+clearBtn.addEventListener('click', e=>{
+    states.clear();
+});
+
 //states.values = ['Arizona','Colorado','Nevada'];
 //states.clear();
 

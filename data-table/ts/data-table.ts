@@ -1,17 +1,17 @@
 /**
  * ad-dt
- *  sticky
- *  small
- *      
- *  
  */
 
-
-
 interface IConfig {
+    id: string;
     label: string;
     sort: boolean;
     width: number;
+    custom: string;
+    hWrap: boolean;
+    rWrap: boolean;
+    hAlign: string;
+    cAlign: string;
 }
 
 interface IHandler {
@@ -20,25 +20,30 @@ interface IHandler {
 }
 
 interface IDataTable {
-    config(data:any):void;
+    config(data:Array<IConfig>):void;
     bind(data: any):void;
     addHandler(handler: IHandler):void;
+    setSortField(id: string, dir: string):void;
 }
 
 class ADDataTable extends HTMLElement implements IDataTable{
     tblBody: HTMLTableSectionElement;
     tblHeader: HTMLTableSectionElement;
     handlers: any;
+    sortColumn: HTMLElement;
+    configData: IConfig[];
 
     constructor(){
         super();
+        this.handlers = {};
         // Get attributes
 
         // Render 
         // Table
         const tbl = document.createElement('table');
         tbl.classList.add('ad-dt__table');
-       
+        this.appendChild(tbl);
+
         // Table header
         const tblHeader = document.createElement('thead');
         tbl.appendChild(tblHeader);
@@ -48,58 +53,194 @@ class ADDataTable extends HTMLElement implements IDataTable{
         const tblBody = document.createElement('tbody');
         tbl.appendChild(tblBody);
         this.tblBody = tblBody;
-        
-        this.innerHTML = this.render();
     }
 
     /**
-     * 
+     * addHandler
      * @param handler 
      */
     addHandler(handler: IHandler): void {
-       this.handlers[handler.key] = handler;
+       this.handlers[handler.key] = handler.handler;
     }
 
     /**
-     * 
+     * config
      * @param data 
      */
-    public config(data: Map<string, IConfig>): void {
-       const entries = Object.entries(data);
-       let hContent = ''; 
-       const cssClass = 'ad-dt__header-cell';
-       
-       for (const [id, val] of entries) {
-            
-            let cContent = `${val.label}`;
-            if(val.sort){
-                cContent = `<ad-dt-c-text>${val.label}</ad-dt-c-text><ad-icon><svg viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg></ad-icon>`;
+    public config(data: Array<IConfig>): void {
+        
+        this.configData = data;
+        let hContent = ''; 
+        const sortAttr = 'ad-sort';
+        
+        data.forEach(item=>{
+            let cContent = `${item.label}`;
+            let cssClass = 'ad-dt__header-cell';
+
+            let sortAttrApplied = '';
+            if(item.sort){
+                cContent = `<ad-dt-c><ad-dt-c-text>${item.label}</ad-dt-c-text><ad-icon><svg viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg></ad-icon></ad-dt-c>`;
+                sortAttrApplied = ` ${sortAttr}`;
+                cssClass += ' ad-dt__header-cell--sort';
             }   
             
             let cWidth = '';
-            if(val.width){
-                cWidth = ` style='width:${val.width}px`;
+            if(item.width){
+                cWidth = ` style='width:${item.width}px; max-width:${item.width}px'`;
             }
-
+            if(item.hWrap){
+                cssClass += ' ad-dt__header-cell--wrap';
+            }
             hContent +=
-                `<th class='${cssClass}'${cWidth}>${cContent}</th>`;
-       }
+                `<th ad-id='${item.id}' class='${cssClass}'${cWidth}${sortAttrApplied} title='${item.label}'>${cContent}</th>`;
+        });
+       
 
-       this.tblHeader.innerHTML = hContent;
+       this.tblHeader.innerHTML = `<tr class="ad-dt__header-row">${hContent}</tr>`;
+       this.tblHeader.querySelectorAll(`[${sortAttr}]`)
+        .forEach(el=>
+            el.addEventListener('click',
+                e=>this.handleSort(e)
+            )
+        );
     }
 
     /**
-     * 
+     * bind
      * @param data 
      */
-    public bind(data: any): void {
-        
+    public bind(data: Array<object> | Array<any>): void {
+        if(Array.isArray(data[0])){
+            this.bindArray(data);
+        }  
+        else {
+            this.bindObject(data);
+        }
+    }
+
+    public setSortField(id: string, dir: string):void{
+
     }
 
     //#region Private members 
-    
-    private render():string{
-        return ``;
+   
+    private bindObject(data:Array<object>):void{
+        let rows = '';
+        data.forEach(rec=>{
+            let cols = '';
+            
+            const recId = (rec as any)['id'];
+
+            this.configData.forEach(cEl=>{
+
+                let value = (rec as any)[cEl.id];
+                let content = value;
+           
+                if(cEl.custom){
+                    const handler = this.handlers[cEl.custom];
+                    content = handler(cEl, rec);
+                }
+
+                let width = '';
+                if(cEl.width){
+                    width = ` style='width:${cEl.width}px; max-width:${cEl.width}px'`;
+                }
+
+                let cssClass = 'ad-dt__cell';
+                if(cEl.rWrap){
+                    cssClass += ' ad-dt__cell--wrap';
+                }
+                
+                cols += 
+                    `<td class='${cssClass}' ad-id='${cEl.id}' title='${value}'${width}>${content}</td>`;
+            
+            });
+            rows += `<tr class='ad-dt__row' ad-id='${recId}' ad-row>${cols}</tr>`;
+        });
+
+        this.tblBody.innerHTML = rows;
+        this.tblBody.querySelectorAll('[ad-row]')
+            .forEach(el=>
+                el.addEventListener('click', e=>this.handleSelect(e))
+            );
+    }
+
+    private bindArray(data:Array<any>):void{
+        let rows = '';
+        const config = this.configData;
+        data.forEach(rec=>{
+            let cols = '';
+            for (let index = 0; index < config.length; index++) {
+                const cEl = config[index];
+                const value = rec[index];
+                cols += 
+                `<td ad-id=${cEl.id} title='${value}'>${value}<td>`;
+            }
+            //let id = '';
+            
+            rows += `<tr>${cols}</tr>`;
+        });
+        console.log(rows);
+        //this.tblBody.innerHTML = rows;
+    }
+
+    private handleSelect(event:Event):void{
+        
+        this.notify('datatable.select',{ 
+            id: (event.currentTarget as HTMLElement).getAttribute('ad-id'),
+        });
+    }
+
+    private handleSort(event: Event):void {
+        const sortCol = event.currentTarget as HTMLElement;
+        const id = sortCol.getAttribute('ad-id');
+
+        const sortAttr = 'ad-sort';
+        const iconRotCl = 'ad-icon--rotate-180';
+
+        const asc = 'asc';
+        const desc = 'desc';
+
+        let selDir = desc;
+
+        this.removeSort(sortCol);
+        sortCol.querySelector('ad-dt-c')
+            .classList.add('ad-dt-c--show-icon'); 
+        
+            const dir = sortCol.getAttribute(sortAttr);
+        const ic = sortCol.querySelector('ad-icon');
+
+        if(dir == '' || dir == desc){
+            sortCol.setAttribute(sortAttr,asc);
+            ic.classList.add(iconRotCl);
+            selDir = asc;
+        } else {
+            sortCol.setAttribute(sortAttr,desc);
+            ic.classList.remove(iconRotCl);
+        }
+
+        this.notify('datatable.sort',{ 
+            id: id,
+            dir: selDir
+        });
+    }
+
+    private removeSort(el:HTMLElement):void{
+        if(this.sortColumn != el){
+            if(this.sortColumn != null){
+                this.sortColumn.querySelector('ad-dt-c')
+                    .classList.remove('ad-dt-c--show-icon');
+            }
+            this.sortColumn = el;
+        }
+    }
+
+    private notify(event:string,obj: object):void{
+        const  evt = new CustomEvent(event, {
+            detail: obj,
+            bubbles: true,
+          });
+        this.dispatchEvent(evt);
     }
 
     //#endregion

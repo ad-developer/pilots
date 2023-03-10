@@ -63,6 +63,25 @@ ad-dt{
         padding-left: 16px;
         height: 56px;
         color: rgba(0,0,0,.87);
+        
+        &--align-right {
+            text-align: right;
+        }
+        &--align-center {
+            text-align: center;
+        }
+
+        &--wrap {
+            white-space: normal;
+            & ad-dt-c-text {
+                white-space: normal !important;
+            }
+        }
+
+        &--sort{
+            cursor: pointer;
+        }
+        
         & ad-dt-c {
             display: inline-flex;
             flex: 0 0 auto;
@@ -133,6 +152,15 @@ ad-dt{
         padding-left: 16px;
         height: 52px;
         color: rgba(0,0,0,.87);
+        &--align-right {
+            text-align: right;
+        }
+        &--align-center {
+            text-align: center;
+        }
+        &--wrap{
+            white-space: normal;
+        }
     }
 }
 
