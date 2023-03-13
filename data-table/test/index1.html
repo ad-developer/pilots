@@ -56,7 +56,9 @@
                 id: 'colTwo',
                 label: 'Column Two',
                 width: 200,
-                rWrap: true
+                rWrap: true,
+                hAlign: 'right',
+                cAlign: 'right'
             },
             {
                 id: 'colThree',
@@ -311,6 +313,9 @@
         tbl.addEventListener('datatable.select', e=>{
             console.log(`id: ${e.detail.id}`);
         });
+
+        tbl.setSortField('colFour', 'asc');
+        tbl.setSortField('colFour', 'desc');
 
     </script>
 </body>

@@ -19,7 +19,6 @@ class ADDataTable extends HTMLElement {
         const tblBody = document.createElement('tbody');
         tbl.appendChild(tblBody);
         this.tblBody = tblBody;
-        //this.innerHTML = this.render();
     }
     /**
      * addHandler
@@ -52,6 +51,12 @@ class ADDataTable extends HTMLElement {
             if (item.hWrap) {
                 cssClass += ' ad-dt__header-cell--wrap';
             }
+            if (item.hAlign == 'center') {
+                cssClass += ' ad-dt__header-cell--align-center';
+            }
+            if (item.hAlign == 'right') {
+                cssClass += ' ad-dt__header-cell--align-right';
+            }
             hContent +=
                 `<th ad-id='${item.id}' class='${cssClass}'${cWidth}${sortAttrApplied} title='${item.label}'>${cContent}</th>`;
         });
@@ -70,6 +75,15 @@ class ADDataTable extends HTMLElement {
         else {
             this.bindObject(data);
         }
+    }
+    /**
+     * setSortField
+     * @param id
+     * @param dir
+     */
+    setSortField(id, dir) {
+        const el = this.querySelector(`[ad-id='${id}']`);
+        this.sort(el, dir);
     }
     //#region Private members 
     bindObject(data) {
@@ -91,6 +105,12 @@ class ADDataTable extends HTMLElement {
                 let cssClass = 'ad-dt__cell';
                 if (cEl.rWrap) {
                     cssClass += ' ad-dt__cell--wrap';
+                }
+                if (cEl.cAlign == 'center') {
+                    cssClass += ' ad-dt__cell--align-center';
+                }
+                if (cEl.cAlign == 'right') {
+                    cssClass += ' ad-dt__cell--align-right';
                 }
                 cols +=
                     `<td class='${cssClass}' ad-id='${cEl.id}' title='${value}'${width}>${content}</td>`;
@@ -126,29 +146,34 @@ class ADDataTable extends HTMLElement {
     handleSort(event) {
         const sortCol = event.currentTarget;
         const id = sortCol.getAttribute('ad-id');
-        const sortAttr = 'ad-sort';
-        const iconRotCl = 'ad-icon--rotate-180';
+        let dir = sortCol.getAttribute('ad-sort');
         const asc = 'asc';
         const desc = 'desc';
-        let selDir = desc;
-        this.removeSort(sortCol);
-        sortCol.querySelector('ad-dt-c')
-            .classList.add('ad-dt-c--show-icon');
-        const dir = sortCol.getAttribute(sortAttr);
-        const ic = sortCol.querySelector('ad-icon');
         if (dir == '' || dir == desc) {
-            sortCol.setAttribute(sortAttr, asc);
-            ic.classList.add(iconRotCl);
-            selDir = asc;
+            dir = asc;
         }
-        else {
-            sortCol.setAttribute(sortAttr, desc);
-            ic.classList.remove(iconRotCl);
+        else if (dir == asc) {
+            dir = desc;
         }
+        this.sort(sortCol, dir);
         this.notify('datatable.sort', {
             id: id,
-            dir: selDir
+            dir: dir
         });
+    }
+    sort(element, setDir) {
+        const iconRotCl = 'ad-icon--rotate-180';
+        this.removeSort(element);
+        element.querySelector('ad-dt-c')
+            .classList.add('ad-dt-c--show-icon');
+        const ic = element.querySelector('ad-icon');
+        element.setAttribute('ad-sort', setDir);
+        if (setDir == 'asc') {
+            ic.classList.remove(iconRotCl);
+        }
+        else {
+            ic.classList.add(iconRotCl);
+        }
     }
     removeSort(el) {
         if (this.sortColumn != el) {

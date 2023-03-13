@@ -131,7 +131,7 @@ ad-ms-l {
 
 ad-ms-li {
   display: flex;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   position: relative;
   align-items: center;
   height: 40px;

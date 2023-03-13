@@ -2,6 +2,9 @@
  * ad-dt
  */
 
+/**
+ * IConfig
+ */
 interface IConfig {
     id: string;
     label: string;
@@ -88,9 +91,19 @@ class ADDataTable extends HTMLElement implements IDataTable{
             if(item.width){
                 cWidth = ` style='width:${item.width}px; max-width:${item.width}px'`;
             }
+            
             if(item.hWrap){
                 cssClass += ' ad-dt__header-cell--wrap';
             }
+            
+            if(item.hAlign == 'center'){
+                cssClass += ' ad-dt__header-cell--align-center';
+            }
+
+            if(item.hAlign == 'right'){
+                cssClass += ' ad-dt__header-cell--align-right';
+            }
+
             hContent +=
                 `<th ad-id='${item.id}' class='${cssClass}'${cWidth}${sortAttrApplied} title='${item.label}'>${cContent}</th>`;
         });
@@ -118,8 +131,14 @@ class ADDataTable extends HTMLElement implements IDataTable{
         }
     }
 
+    /**
+     * setSortField
+     * @param id 
+     * @param dir 
+     */
     public setSortField(id: string, dir: string):void{
-
+        const el = this.querySelector(`[ad-id='${id}']`) as HTMLElement;
+        this.sort(el, dir);
     }
 
     //#region Private members 
@@ -150,7 +169,15 @@ class ADDataTable extends HTMLElement implements IDataTable{
                 if(cEl.rWrap){
                     cssClass += ' ad-dt__cell--wrap';
                 }
-                
+
+                if(cEl.cAlign == 'center'){
+                    cssClass += ' ad-dt__cell--align-center';
+                }
+
+                if(cEl.cAlign == 'right'){
+                    cssClass += ' ad-dt__cell--align-right';
+                }
+
                 cols += 
                     `<td class='${cssClass}' ad-id='${cEl.id}' title='${value}'${width}>${content}</td>`;
             
@@ -194,35 +221,42 @@ class ADDataTable extends HTMLElement implements IDataTable{
     private handleSort(event: Event):void {
         const sortCol = event.currentTarget as HTMLElement;
         const id = sortCol.getAttribute('ad-id');
-
-        const sortAttr = 'ad-sort';
-        const iconRotCl = 'ad-icon--rotate-180';
-
+        let dir = sortCol.getAttribute('ad-sort');
+        
         const asc = 'asc';
         const desc = 'desc';
-
-        let selDir = desc;
-
-        this.removeSort(sortCol);
-        sortCol.querySelector('ad-dt-c')
-            .classList.add('ad-dt-c--show-icon'); 
         
-            const dir = sortCol.getAttribute(sortAttr);
-        const ic = sortCol.querySelector('ad-icon');
-
         if(dir == '' || dir == desc){
-            sortCol.setAttribute(sortAttr,asc);
-            ic.classList.add(iconRotCl);
-            selDir = asc;
-        } else {
-            sortCol.setAttribute(sortAttr,desc);
-            ic.classList.remove(iconRotCl);
+            dir = asc;
+        } 
+        else if(dir == asc){
+            dir = desc;
         }
+
+        this.sort(sortCol, dir);
 
         this.notify('datatable.sort',{ 
             id: id,
-            dir: selDir
+            dir: dir
         });
+    }
+
+    private sort(element:HTMLElement, setDir:string):void{
+        const iconRotCl = 'ad-icon--rotate-180';
+
+        this.removeSort(element);
+        element.querySelector('ad-dt-c')
+            .classList.add('ad-dt-c--show-icon'); 
+        
+        const ic = element.querySelector('ad-icon');
+        element.setAttribute('ad-sort',setDir);
+        
+        if(setDir == 'asc'){
+            ic.classList.remove(iconRotCl);
+        } 
+        else {
+            ic.classList.add(iconRotCl);
+        }
     }
 
     private removeSort(el:HTMLElement):void{

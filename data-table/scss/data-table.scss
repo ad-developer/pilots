@@ -84,6 +84,7 @@ ad-dt{
         
         & ad-dt-c {
             display: inline-flex;
+            position: relative;
             flex: 0 0 auto;
             align-items: center;
             width: 100%;
@@ -100,7 +101,7 @@ ad-dt{
             & ad-icon {
                 display: none;
                 position: absolute;
-                right: 0px;
+                right: -16px;
                 width: 32px;
                 height: 32px;
                 padding: 6px;
