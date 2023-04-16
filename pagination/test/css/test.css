@@ -1,0 +1,39 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0px;
+    padding: 0px;
+}
+.ad-test-panel{
+    display: inline-flex;
+    position: relative;
+    width: 800px;
+    height: 64px;
+    margin: 100px;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.ad-row {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 24px;
+}
+.ad-column {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0px;
+    width: 33%;
+    margin-right: 24px;
+}
+
+.ad-column:last-child{
+    margin-right: 0px;
+    padding: 0px;
+    margin: 0px;
+}

@@ -25,7 +25,7 @@ class ADDataTable extends HTMLElement {
      * @param handler
      */
     addHandler(handler) {
-        this.handlers[handler.key] = handler.handler;
+        this.handlers[handler.key] = handler;
     }
     /**
      * config
@@ -96,7 +96,11 @@ class ADDataTable extends HTMLElement {
                 let content = value;
                 if (cEl.custom) {
                     const handler = this.handlers[cEl.custom];
-                    content = handler(cEl, rec);
+                    const hnd = handler.handler(cEl, rec);
+                    content = hnd.content;
+                    if (hnd.title) {
+                        value = hnd.title;
+                    }
                 }
                 let width = '';
                 if (cEl.width) {
@@ -112,8 +116,12 @@ class ADDataTable extends HTMLElement {
                 if (cEl.cAlign == 'right') {
                     cssClass += ' ad-dt__cell--align-right';
                 }
+                let title = '';
+                if (value) {
+                    title = `title='${value}'`;
+                }
                 cols +=
-                    `<td class='${cssClass}' ad-id='${cEl.id}' title='${value}'${width}>${content}</td>`;
+                    `<td class='${cssClass}' ad-id='${cEl.id}' ${title}${width}>${content}</td>`;
             });
             rows += `<tr class='ad-dt__row' ad-id='${recId}' ad-row>${cols}</tr>`;
         });

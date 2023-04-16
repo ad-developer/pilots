@@ -1,0 +1,61 @@
+ad-pg {
+  display: inline-flex;
+  position: relative;
+  flex: 0 0 auto;
+  height: 40px;
+  align-items: center; }
+  ad-pg.ad-pg--hidden {
+    visibility: hidden; }
+  ad-pg .ad-pg-button {
+    display: flex;
+    position: relative;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 4px;
+    cursor: pointer;
+    pointer-events: inherit; }
+    ad-pg .ad-pg-button svg {
+      width: 24px;
+      height: 24px; }
+    ad-pg .ad-pg-button:hover {
+      background-color: #f1f1f1; }
+  ad-pg ad-pg-selector-options {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    flex: 0 0 auto;
+    min-width: 80px;
+    padding: 4px 0;
+    top: 38px;
+    right: 78px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+    z-index: 100;
+    visibility: hidden; }
+    ad-pg ad-pg-selector-options ad-pg-selector-option {
+      display: inline-flex;
+      flex: 0 0 auto;
+      height: 32px;
+      min-width: 80px;
+      align-items: center;
+      padding: 0 16px; }
+      ad-pg ad-pg-selector-options ad-pg-selector-option:hover {
+        background-color: #f1f1f1;
+        cursor: pointer; }
+  ad-pg .ad-pg-selector__options--show {
+    visibility: visible; }
+
+ad-pg-selector {
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-right: 4px;
+  padding: 0 4px;
+  height: 32px;
+  cursor: pointer; }
+  ad-pg-selector:hover {
+    background-color: #f1f1f1; }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/test.css">
+    <link rel="stylesheet" href="../../icon/css/icon.css">
+    <link rel="stylesheet" href="../css/pagination.css">
+</head>
+<body>
+    <div class="ad-test-panel">
+        
+        <ad-pg style="margin-left: auto">
+            
+            <ad-pg-page-number-selector>
+                Rows per page
+                <ad-pg-element>
+                    <select name="" id="">
+                        <option value="5">5</option>
+                        <option value="5">25</option>
+                        <option value="5">50</option>
+                        <option value="5">100</option>
+                    </select>
+                </ad-pg-element>
+            </ad-pg-page-number-selector>
+
+            <ad-pg-selector>
+                <span>
+                    1 - 10 of 345
+                </span>
+            </ad-pg-selector>
+            
+            <ad-pg-selector-options class="ad-pg-selector__options--show">
+                <ad-pg-selector-option>
+                    First
+                </ad-pg-selector-option>
+                <ad-pg-selector-option>
+                    Last 
+                </ad-pg-selector-option>
+            </ad-pg-selector-options>
+            
+            <ad-icon class="ad-pg-button">
+                <svg  viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0V0z" fill="none"/>
+                    <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z"/>
+                </svg>
+            </ad-icon>
+            <ad-icon class="ad-pg-button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0V0z" fill="none"/>
+                    <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z"/>
+                </svg>
+            </ad-icon>
+
+        </ad-pg>
+
+    </div>
+</body>
+</html>

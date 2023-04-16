@@ -17,9 +17,14 @@ interface IConfig {
     cAlign: string;
 }
 
+interface IHandlerResult {
+    content: string,
+    title: string
+}
+
 interface IHandler {
     key: string,
-    handler: any;
+    handler: (el: object, rec: object) => IHandlerResult;
 }
 
 interface IDataTable {
@@ -63,7 +68,7 @@ class ADDataTable extends HTMLElement implements IDataTable{
      * @param handler 
      */
     addHandler(handler: IHandler): void {
-       this.handlers[handler.key] = handler.handler;
+       this.handlers[handler.key] = handler;
     }
 
     /**
@@ -156,8 +161,12 @@ class ADDataTable extends HTMLElement implements IDataTable{
                 let content = value;
            
                 if(cEl.custom){
-                    const handler = this.handlers[cEl.custom];
-                    content = handler(cEl, rec);
+                    const handler = this.handlers[cEl.custom] as IHandler;
+                    const hnd = handler.handler(cEl, rec);
+                    content = hnd.content;
+                    if(hnd.title){
+                        value = hnd.title;
+                    }
                 }
 
                 let width = '';
@@ -177,9 +186,14 @@ class ADDataTable extends HTMLElement implements IDataTable{
                 if(cEl.cAlign == 'right'){
                     cssClass += ' ad-dt__cell--align-right';
                 }
+                
+                let title = '';
+                if(value){
+                    title = `title='${value}'`;
+                }
 
                 cols += 
-                    `<td class='${cssClass}' ad-id='${cEl.id}' title='${value}'${width}>${content}</td>`;
+                    `<td class='${cssClass}' ad-id='${cEl.id}' ${title}${width}>${content}</td>`;
             
             });
             rows += `<tr class='ad-dt__row' ad-id='${recId}' ad-row>${cols}</tr>`;
