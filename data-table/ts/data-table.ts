@@ -189,6 +189,10 @@ class ADDataTable extends HTMLElement implements IDataTable{
                 
                 let title = '';
                 if(value){
+                    // Single quote
+                    value = value.replace("'", '&#39;')
+                    // Double quote
+                    value = value.replace("'", '&#34;')
                     title = `title='${value}'`;
                 }
 
