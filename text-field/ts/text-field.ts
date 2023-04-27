@@ -55,10 +55,15 @@ class ADTextField extends HTMLElement{
         const label = this.getAttribute('ad-label');
         const formElement = 'ad-form-element';
         const inputElement = 'ad-input-element';
+        let value = this.getAttribute('value');
+        if(value){
+            value = ` value="${value}"`;
+        }
 
         const typeHandlers: {[index: string]:any} = {
             'text': (id:string) => { 
-                return `<input type="text" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+                
+                return `<input type="text" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}${value}>`;
             },
             'search': (id:string) => {
                 this.classList.add('ad-text-field--icon-left');
@@ -73,11 +78,11 @@ class ADTextField extends HTMLElement{
             },
             'date':  (id:string) => {
                 this.classList.add('ad-text-field--date-time');
-                return `<input type="date" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+                return `<input type="date" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}${value}>`;
             },
             'datetime': (id:string) => {
                 this.classList.add('ad-text-field--date-time');
-                return `<input type="datetime-local" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}>`;
+                return `<input type="datetime-local" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}${value}>`;
             }
         }
 

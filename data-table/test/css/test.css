@@ -43,3 +43,31 @@ body{
     margin-right: auto;
     width: 1000px;
 }
+
+.ad-fixed-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: aqua;
+    bottom: 0px;
+    
+}
+
+.ad-header {
+    display: flex;
+    position:fixed;
+    height: 64px;
+    width: 100%;
+    background-color: #ccc;
+}
+
+.ad-fixed-container {
+    display: flex;
+    position:fixed;
+    top: 64px;
+    width: 100%;
+    height: auto;
+    flex-grow: 1;
+    bottom: 40px;
+}
+
