@@ -25,6 +25,8 @@ ad-text-field {
       margin-left: 12px; }
   ad-text-field.ad-text-field--date-time {
     padding-right: 12px; }
+    ad-text-field.ad-text-field--date-time input {
+      display: block !important; }
     ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-year-field,
     ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-month-field,
     ad-text-field.ad-text-field--date-time input:in-range::-webkit-datetime-edit-day-field,

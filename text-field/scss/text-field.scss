@@ -41,6 +41,10 @@ ad-text-field {
 
     &.ad-text-field--date-time {
         padding-right: 12px;
+        & input {
+            display: block !important;
+        }
+        
         & input:in-range::-webkit-datetime-edit-year-field, 
         & input:in-range::-webkit-datetime-edit-month-field, 
         & input:in-range::-webkit-datetime-edit-day-field, 
