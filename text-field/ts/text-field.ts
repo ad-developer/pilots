@@ -58,6 +58,8 @@ class ADTextField extends HTMLElement{
         let value = this.getAttribute('value');
         if(value){
             value = ` value="${value}"`;
+        } else {
+            value = '';
         }
 
         const typeHandlers: {[index: string]:any} = {

@@ -16,7 +16,7 @@ ad-dt {
   ad-dt.ad-dt__table--small .ad-dt__cell {
     height: 40px; }
   ad-dt.ad-dt__table--striped .ad-dt__row:nth-child(even) {
-    background-color: #f9f9f9; }
+    background-color: rgba(0, 0, 0, 0.03); }
     ad-dt.ad-dt__table--striped .ad-dt__row:nth-child(even):hover {
       background-color: rgba(0, 0, 0, 0.04); }
 

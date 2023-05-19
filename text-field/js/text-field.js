@@ -47,6 +47,9 @@ class ADTextField extends HTMLElement {
         if (value) {
             value = ` value="${value}"`;
         }
+        else {
+            value = '';
+        }
         const typeHandlers = {
             'text': (id) => {
                 return `<input type="text" class="ad-element-input" name="${id}" ad-id="${id}" ${inputElement} ${formElement}${value}>`;
