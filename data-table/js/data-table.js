@@ -102,6 +102,15 @@ class ADDataTable extends HTMLElement {
                         value = hnd.title;
                     }
                 }
+                // Date type 
+                if (cEl.type == 'date') {
+                    const dateType = new Date(content);
+                    content = dateType.toLocaleDateString();
+                }
+                // Remove nulls
+                if (cEl.removeNull && content == null || content == 'null') {
+                    content = '';
+                }
                 let width = '';
                 if (cEl.width) {
                     width = ` style='width:${cEl.width}px; max-width:${cEl.width}px'`;

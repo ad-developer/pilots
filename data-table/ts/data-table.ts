@@ -15,6 +15,8 @@ interface IConfig {
     rWrap: boolean;
     hAlign: string;
     cAlign: string;
+    type: string;
+    removeNull: boolean;
 }
 
 interface IHandlerResult {
@@ -167,6 +169,18 @@ class ADDataTable extends HTMLElement implements IDataTable{
                     if(hnd.title){
                         value = hnd.title;
                     }
+                }
+                
+                // Date type 
+                if(cEl.type == 'date'){
+                    const dateType = new Date(content);
+                    content = dateType.toLocaleDateString();
+                }
+
+
+                // Remove nulls
+                if(cEl.removeNull && content == null || content == 'null'){
+                    content = '';
                 }
 
                 let width = '';
