@@ -16,7 +16,6 @@ interface IConfig {
     hAlign: string;
     cAlign: string;
     type: string;
-    removeNull: boolean;
 }
 
 interface IHandlerResult {
@@ -161,7 +160,12 @@ class ADDataTable extends HTMLElement implements IDataTable{
 
                 let value = (rec as any)[cEl.id];
                 let content = value;
-           
+                
+                // Remove nulls
+                if(content == null || content == 'null'){
+                    content = '';
+                }
+
                 if(cEl.custom){
                     const handler = this.handlers[cEl.custom] as IHandler;
                     const hnd = handler.handler(cEl, rec);
@@ -172,15 +176,9 @@ class ADDataTable extends HTMLElement implements IDataTable{
                 }
                 
                 // Date type 
-                if(cEl.type == 'date'){
+                if(cEl.type == 'date' && content != ''){
                     const dateType = new Date(content);
                     content = dateType.toLocaleDateString();
-                }
-
-
-                // Remove nulls
-                if(cEl.removeNull && content == null || content == 'null'){
-                    content = '';
                 }
 
                 let width = '';

@@ -94,6 +94,10 @@ class ADDataTable extends HTMLElement {
             this.configData.forEach(cEl => {
                 let value = rec[cEl.id];
                 let content = value;
+                // Remove nulls
+                if (content == null || content == 'null') {
+                    content = '';
+                }
                 if (cEl.custom) {
                     const handler = this.handlers[cEl.custom];
                     const hnd = handler.handler(cEl, rec);
@@ -103,13 +107,9 @@ class ADDataTable extends HTMLElement {
                     }
                 }
                 // Date type 
-                if (cEl.type == 'date') {
+                if (cEl.type == 'date' && content != '') {
                     const dateType = new Date(content);
                     content = dateType.toLocaleDateString();
-                }
-                // Remove nulls
-                if (cEl.removeNull && content == null || content == 'null') {
-                    content = '';
                 }
                 let width = '';
                 if (cEl.width) {
