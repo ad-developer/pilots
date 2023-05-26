@@ -93,11 +93,11 @@ class ADDataTable extends HTMLElement {
             const recId = rec['id'];
             this.configData.forEach(cEl => {
                 let value = rec[cEl.id];
-                let content = value;
                 // Remove nulls
-                if (content == null || content == 'null') {
-                    content = '';
+                if (value == null || value == 'null') {
+                    value = '';
                 }
+                let content = value;
                 if (cEl.custom) {
                     const handler = this.handlers[cEl.custom];
                     const hnd = handler.handler(cEl, rec);
@@ -113,7 +113,7 @@ class ADDataTable extends HTMLElement {
                 }
                 let width = '';
                 if (cEl.width) {
-                    width = ` style='width:${cEl.width}px; max-width:${cEl.width}px'`;
+                    width = ` style='width:${cEl.width}px; min-width:${cEl.width}px; max-width:${cEl.width}px'`;
                 }
                 let cssClass = 'ad-dt__cell';
                 if (cEl.rWrap) {

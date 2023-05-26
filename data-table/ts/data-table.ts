@@ -159,13 +159,14 @@ class ADDataTable extends HTMLElement implements IDataTable{
             this.configData.forEach(cEl=>{
 
                 let value = (rec as any)[cEl.id];
+                 
+                // Remove nulls
+                 if(value == null || value == 'null'){
+                    value = '';
+                }
+                
                 let content = value;
                 
-                // Remove nulls
-                if(content == null || content == 'null'){
-                    content = '';
-                }
-
                 if(cEl.custom){
                     const handler = this.handlers[cEl.custom] as IHandler;
                     const hnd = handler.handler(cEl, rec);
@@ -183,7 +184,7 @@ class ADDataTable extends HTMLElement implements IDataTable{
 
                 let width = '';
                 if(cEl.width){
-                    width = ` style='width:${cEl.width}px; max-width:${cEl.width}px'`;
+                    width = ` style='width:${cEl.width}px; min-width:${cEl.width}px; max-width:${cEl.width}px'`;
                 }
 
                 let cssClass = 'ad-dt__cell';
