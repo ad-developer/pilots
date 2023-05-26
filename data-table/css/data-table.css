@@ -8,7 +8,7 @@ ad-dt {
   border: 1px solid rgba(0, 0, 0, 0.12);
   overflow-x: auto; }
   ad-dt.ad-dt__table--header-highlight .ad-dt__header-cell {
-    background-color: ad-dt-header-highlight; }
+    background-color: #ddd; }
   ad-dt.ad-dt__table--square-border {
     border-radius: 0px; }
   ad-dt.ad-dt__table--small .ad-dt__header-cell {

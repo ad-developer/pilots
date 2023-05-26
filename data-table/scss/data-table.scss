@@ -11,7 +11,7 @@ ad-dt{
     overflow-x: auto;
 
     &.ad-dt__table--header-highlight .ad-dt__header-cell{
-         background-color: ad-dt-header-highlight;
+         background-color: $ad-dt-header-highlight;
     }
 
     &.ad-dt__table--square-border {
