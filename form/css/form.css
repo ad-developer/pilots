@@ -5,6 +5,10 @@
   background-color: #f7f7f7;
   padding: 8px 0; }
 
+ad-form-row,
+ad-form-col {
+  display: flex; }
+
 .ad-input-group {
   display: flex;
   flex-direction: column;

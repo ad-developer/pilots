@@ -137,12 +137,12 @@ export class ADForm extends ADComponent {
         element.elements.forEach(el => {
             let w = '';
             if (el.width != null) {
-                w = `width:${el.width}; `;
+                w = `style="width:${el.width}";`;
             }
             let ctr = this.buildElement(el);
-            content += `<ad-form-col style="${w}display:flex">${ctr}</ad-form-col>`;
+            content += `<ad-form-col ${w}>${ctr}</ad-form-col>`;
         });
-        return `<ad-form-row style="display:flex">${content}</ad-form-row>`;
+        return `<ad-form-row>${content}</ad-form-row>`;
     }
     buildElement(element) {
         const el = element.tag.toLowerCase();

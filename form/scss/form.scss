@@ -7,6 +7,11 @@
     background-color: $ad-form-background-color;
     padding: $ad-form-padding;
 }
+ad-form-row,
+ad-form-col {
+    display: flex;
+}
+
 .ad-input-group {
     display: flex;
     flex-direction: column;
