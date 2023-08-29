@@ -8,12 +8,13 @@ declare var ad: any;
 interface IThrottle {
     (event:Event): void;
 }
-
 interface IElement {
     id:string;
-    tag:string;
-    attributes: Array<Map<string, string>>;
-    options: Array<Map<string, string>>;
+    tag:string,
+    width: string,
+    elements: Array<IElement>,
+    attributes: Array<{[key:string]:string}>;
+    options: Array<{[key:string]:string}>;
 }
 
 /**
@@ -123,8 +124,10 @@ export class ADForm extends ADComponent implements IForm {
      * Template 
      * [
      *  {
-     *      id: 'id'
-     *      tag: 'input'
+     *      id: 'id',
+     *      tag: 'input',
+     *      width: "20%",
+     *      elements: [{},{}]
      *      attributes: [
      *                      { 'type': 'text'},
      *                       ...
@@ -135,7 +138,13 @@ export class ADForm extends ADComponent implements IForm {
      */
     public build(elements:Array<IElement>):void {
         elements.forEach(el=>{
-            this.root.innerHTML += this.buildElement(el);
+            let line = '';
+            if(el.tag.toLowerCase() == 'row'){
+                line = this.buildRow(el);
+            } else {
+                line = this.buildElement(el);
+            }
+            this.root.innerHTML += line;
         });
 
         this.applyOptions(elements);
@@ -177,6 +186,19 @@ export class ADForm extends ADComponent implements IForm {
         });
     }
 
+    private buildRow(element:IElement):string {
+        let content = '';
+        element.elements.forEach(el=>{
+            let w = '';
+            if(el.width != null){
+                w = `width:${el.width}; `;
+            }
+            let ctr = this.buildElement(el);
+            content += `<ad-form-col style="${w}display:flex">${ctr}</ad-form-col>`
+        });
+        return `<ad-form-row style="display:flex">${content}</ad-form-row>`;
+    }
+
     private buildElement(element:IElement):string {
         const el = element.tag.toLowerCase();
         let end = '';
@@ -191,7 +213,7 @@ export class ADForm extends ADComponent implements IForm {
         element.attributes.forEach(item=>{
             //for(let [attr, value] of Object.entries(item)){
             for(const attr in item){
-                let value = item.get(attr);
+                let value = item[attr];
                 if(value != ''){
                     value =  `='${value}'`;
                 }

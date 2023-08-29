@@ -7,6 +7,13 @@ ad-text-field {
   margin-bottom: 30px;
   border: 1px solid #ccc;
   border-radius: 16px; }
+  ad-text-field.ad-text-field-textarea {
+    height: 100px; }
+    ad-text-field.ad-text-field-textarea textarea {
+      height: 88px;
+      min-height: 88px;
+      resize: none;
+      font: inherit; }
   ad-text-field.ad-text-field--icon-left {
     padding-left: 12px; }
     ad-text-field.ad-text-field--icon-left ad-icon {

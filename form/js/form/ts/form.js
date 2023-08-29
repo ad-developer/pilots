@@ -79,8 +79,10 @@ export class ADForm extends ADComponent {
      * Template
      * [
      *  {
-     *      id: 'id'
-     *      tag: 'input'
+     *      id: 'id',
+     *      tag: 'input',
+     *      width: "20%",
+     *      elements: [{},{}]
      *      attributes: [
      *                      { 'type': 'text'},
      *                       ...
@@ -91,7 +93,14 @@ export class ADForm extends ADComponent {
      */
     build(elements) {
         elements.forEach(el => {
-            this.root.innerHTML += this.buildElement(el);
+            let line = '';
+            if (el.tag.toLowerCase() == 'row') {
+                line = this.buildRow(el);
+            }
+            else {
+                line = this.buildElement(el);
+            }
+            this.root.innerHTML += line;
         });
         this.applyOptions(elements);
         this.bind();
@@ -123,6 +132,18 @@ export class ADForm extends ADComponent {
             element.bind(el.options);
         });
     }
+    buildRow(element) {
+        let content = '';
+        element.elements.forEach(el => {
+            let w = '';
+            if (el.width != null) {
+                w = `width:${el.width}; `;
+            }
+            let ctr = this.buildElement(el);
+            content += `<ad-form-col style="${w}display:flex">${ctr}</ad-form-col>`;
+        });
+        return `<ad-form-row style="display:flex">${content}</ad-form-row>`;
+    }
     buildElement(element) {
         const el = element.tag.toLowerCase();
         let end = '';
@@ -136,7 +157,7 @@ export class ADForm extends ADComponent {
         element.attributes.forEach(item => {
             //for(let [attr, value] of Object.entries(item)){
             for (const attr in item) {
-                let value = item.get(attr);
+                let value = item[attr];
                 if (value != '') {
                     value = `='${value}'`;
                 }

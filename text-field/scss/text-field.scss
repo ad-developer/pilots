@@ -10,6 +10,16 @@ ad-text-field {
     border: 1px solid #ccc;
     border-radius: 16px;
    
+    &.ad-text-field-textarea {
+        height: 100px;
+        & textarea {
+            height: 88px;
+            min-height: 88px;
+            resize: none;
+            font: inherit;
+        }
+    }
+
     &.ad-text-field--icon-left{
         padding-left: 12px;
         & ad-icon {

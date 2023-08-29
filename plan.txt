@@ -53,7 +53,22 @@ ad-text-field
         ad-icon
         ad-button 
     ad-helper-text 
-  
+
+
+ad-text-filed
+    text
+    text with icons
+    date 
+    datetime
+    textarea
+
+ad-multiselect
+ad-select
+ad-rte
+
+form
+    form-status with the typing effect 
+https://www.lifebeyondcode.tech/implement-chatgpts-typing-effect-script-step-by-step-tutorial-using-javascript-html-css/
 
 
 

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/test.css">
 </head>
 <body>
+    
     <div class="ad-test-panel">
        
         <div class="ad-row" style="height: 50px;">
@@ -25,7 +26,7 @@
             <div class="ad-row">
                 <dir class="ad-column-50">
                     <ad-text-field class="ad-error">
-                        <label for="" class="ad-text-field-label">First name</label>
+                        <label for="" class="ad-text-field-label">First name*</label>
                         <ad-element>
                             <input type="text" class="ad-element-input" ad-input-element value="test value" ad-test-element>
                         </ad-element>
@@ -142,19 +143,22 @@
             </ad-element>
             <ad-helper-text>Some information is here</ad-helper-text>            
         </ad-text-field>   
-        <ad-text-field>
-            <label for="" class="ad-text-field-label">State</label>
+        <ad-text-field class="ad-text-field-textarea">
+            <label for="" class="ad-text-field-label">Description</label>
             <ad-element>
-               <Textarea class="ad-element-input" ad-input-element></Textarea>
+               <textarea class="ad-element-input" ad-input-element></textarea>
             </ad-element>
-            <ad-helper-text>Some information is here</ad-helper-text>            
+            <ad-helper-text class="ad-helper-text--show">Please provide some meaninful description about your issue</ad-helper-text>            
         </ad-text-field>   
     </div>
+    
     <div>
         <button ad-clear>Clear</button>
         <button ad-set>Set</button>
     </div>
+    
     <script src="../js/text-field.js"></script>
     <script src="js/test.js"></script>
+
 </body>
 </html>

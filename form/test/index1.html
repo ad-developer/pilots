@@ -41,13 +41,46 @@
                 ]
             },
             {
-                id: 'startDate',
+                id: 'description',
                 tag: 'ad-text-field',
                 attributes: [
-                    {'type': 'date'},
-                    {'ad-label': 'Start date'}
+                    {'type': 'textarea'},
+                    {'ad-label': 'Description'}
                 ]
             },
+            {
+                tag: 'row',
+                elements: [
+                    {
+                        id: 'startDate',
+                        tag: 'ad-text-field',
+                        width: '25%',
+                        attributes: [
+                            {'type': 'date'},
+                            {'ad-label': 'Start date'}
+                        ]
+                    },
+                    {
+                        id: 'someDate',
+                        tag: 'ad-text-field',
+                        width: '25%',
+                        attributes: [
+                            {'type': 'date'},
+                            {'ad-label': 'Date in between'}
+                        ]
+                    },
+                    {
+                        id: 'endDate',
+                        tag: 'ad-text-field',
+                        width: '50%',
+                        attributes: [
+                            {'type': 'date'},
+                            {'ad-label': 'End date'}
+                        ]
+                    },
+                ]
+            },
+            
             {
                 id: 'states',
                 tag: 'ad-ms',

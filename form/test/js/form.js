@@ -2,11 +2,15 @@
  * ADForm class
  */
 class ADForm extends ADComponent {
-    //elements_ = null;
-    //validator_ = null;
-    //parameters = null;
-    //change = false;
-    //timerId = undefined;
+    constructor() {
+        super(...arguments);
+        this.elements_ = null;
+        this.validator_ = null;
+        this.parameters = null;
+        this.change = false;
+        this.timerId = undefined;
+        //#endregion
+    }
     /**
     * attachTo
     * @param {Element}root
@@ -39,8 +43,8 @@ class ADForm extends ADComponent {
         // form.change event 
         this.trackElements(true);
         // Bind elements 
-        for (const [id, value] of Object.entries(data)) {
-            this.setElementValue(id, value);
+        for (const id in data) {
+            this.setElementValue(id, data[id]);
         }
         // Set tracing 
         this.trackElements(false);
@@ -50,8 +54,9 @@ class ADForm extends ADComponent {
      * @param parameters
      */
     init(parameters) {
+        this.trackElementHandler = this.trackElementHandler.bind(this);
         this.parameters = parameters;
-        const meta = parameters?.meta;
+        const meta = parameters === null || parameters === void 0 ? void 0 : parameters.meta;
         if (meta) {
             this.build(meta);
         }
@@ -73,8 +78,10 @@ class ADForm extends ADComponent {
      * Template
      * [
      *  {
-     *      id: 'id'
-     *      tag: 'input'
+     *      id: 'id',
+     *      tag: 'input',
+     *      width: "20%",
+     *      elements: [{},{}]
      *      attributes: [
      *                      { 'type': 'text'},
      *                       ...
@@ -85,7 +92,14 @@ class ADForm extends ADComponent {
      */
     build(elements) {
         elements.forEach(el => {
-            this.root.innerHTML += this.buildElement(el);
+            let line = '';
+            if (el.tag.toLowerCase() == 'row') {
+                line = this.buildRow(el);
+            }
+            else {
+                line = this.buildElement(el);
+            }
+            this.root.innerHTML += line;
         });
         this.applyOptions(elements);
         this.bind();
@@ -103,10 +117,11 @@ class ADForm extends ADComponent {
     }
     //#region  Private members 
     bind() {
+        var _a, _b;
         this.createElementList();
         this.trackElements(false);
         if (this.elements_.length > 0) {
-            this.validator_ = this.parameters?.validator?.(this.root);
+            this.validator_ = (_b = (_a = this.parameters) === null || _a === void 0 ? void 0 : _a.validator) === null || _b === void 0 ? void 0 : _b.call(_a, this.root);
         }
     }
     applyOptions(elements) {
@@ -115,6 +130,18 @@ class ADForm extends ADComponent {
             const element = this.root.querySelector(`[ad-id='${el.id}']`);
             element.bind(el.options);
         });
+    }
+    buildRow(element) {
+        let content = '';
+        element.elements.forEach(el => {
+            let w = '';
+            if (el.width != null) {
+                w = `width:${el.width}; `;
+            }
+            let ctr = this.buildElement(el);
+            content += `<ad-form-col style="${w}display:flex">${ctr}</ad-form-col>`;
+        });
+        return `<ad-form-row style="display:flex">${content}</ad-form-row>`;
     }
     buildElement(element) {
         const el = element.tag.toLowerCase();
@@ -127,7 +154,9 @@ class ADForm extends ADComponent {
             end = `</${el}>`;
         }
         element.attributes.forEach(item => {
-            for (let [attr, value] of Object.entries(item)) {
+            //for(let [attr, value] of Object.entries(item)){
+            for (const attr in item) {
+                let value = item[attr];
                 if (value != '') {
                     value = `='${value}'`;
                 }
@@ -155,17 +184,18 @@ class ADForm extends ADComponent {
             eventType = 'click';
         }
         if (untrack) {
-            el.removeEventListener(eventType, e => this.trackElementHandler(e));
+            el.removeEventListener(eventType, this.trackElementHandler);
         }
         else {
-            el.addEventListener(eventType, e => this.trackElementHandler(e));
+            el.addEventListener(eventType, this.trackElementHandler);
         }
     }
     trackElementHandler(e) {
+        var _a;
         const fun = (e) => {
             this.emit('form.change', { event: e });
         };
-        if (this.parameters?.throttling) {
+        if ((_a = this.parameters) === null || _a === void 0 ? void 0 : _a.throttling) {
             let delay = this.parameters.delay;
             if (!delay) {
                 delay = 1000;

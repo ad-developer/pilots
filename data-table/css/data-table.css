@@ -105,7 +105,8 @@ ad-dt {
   text-transform: inherit; }
 
 .ad-dt__row {
-  border-top: 1px solid rgba(0, 0, 0, 0.12); }
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer; }
   .ad-dt__row:hover {
     background-color: rgba(0, 0, 0, 0.04); }
 
@@ -130,3 +131,6 @@ ad-dt {
     text-align: center; }
   .ad-dt__cell--wrap {
     white-space: normal; }
+
+.ad-dt__column--highlight {
+  background-color: rgba(0, 0, 0, 0.04); }
